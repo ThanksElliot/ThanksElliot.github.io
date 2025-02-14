@@ -1,0 +1,19 @@
+############################################################################
+############################################################################
+
+[Broadcast, Bridge y Trunk]:
+
+Broadcast:
+Definición: Transmisión de datos a todos los dispositivos en una red.
+Uso: Se utiliza para enviar información a todos los nodos de una red local.
+
+Bridge:
+Definición: Dispositivo que conecta dos o más segmentos de red y filtra el tráfico entre ellos.
+Uso: Mejora la eficiencia de la red al reducir el tráfico de broadcast y segmentar la red.
+
+Trunk:
+Definición: Enlace que transporta múltiples VLANs a través de un solo cable físico.
+Uso: Permite la comunicación entre diferentes VLANs en switches, utilizando etiquetas para identificar el tráfico.
+
+############################################################################
+############################################################################

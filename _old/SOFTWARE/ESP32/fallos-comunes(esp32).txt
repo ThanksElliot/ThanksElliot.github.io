@@ -1,0 +1,18 @@
+# reconocimiento de hardware COM
+El problema puede ser por varias razones, pero lo más común es que el cable no permita el envío de datos y sea solo de carga.
+
+# código simple para comprobar su correcto funcionamiento
+Archivo > Ejemplos > Basics > Blink  # en el caso de que no funcione lanzo el código de abajo 
++----------------------------------------------------------+
+ void setup() {
+   pinMode(2, OUTPUT);  // Configurar el GPIO 2 como salida
+ }
+ void loop() {
+   digitalWrite(2, HIGH);  // Encender LED
+   delay(1000);            // Esperar 1 segundo
+   digitalWrite(2, LOW);   // Apagar LED
+   delay(1000);            // Esperar 1 segundo
+ }
++----------------------------------------------------------+
+
+# 

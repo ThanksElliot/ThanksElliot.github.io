@@ -1,0 +1,22 @@
+# para presualizar videocamaras se hace utilizando el protocolo de rtsp
+# en el caso de que el hardware de las camaras de videovigilancia no nos facilite una interfaz de previsualización, podemos hacerlo de varias formas, (teniendo prioridad en la primera):
+
+================[forma 1]================================================================================================
+# Reproducir con ffmpeg: es el estandar utilizado para todo lo relacionado con el streaming
+https://www.ffmpeg.org/                            # descarga
+.\ffplay.exe -x 760 -y 428 -i "rtsp://10.1.80.25/rtpvideo1.sdp" -window_title "CAM-01" -hide_banner -nostats -loglevel -8
+
+# entro a la carpeta bin
+cd /Descargas/ffmpeg-x-xxxxx-xxxxx/bin
+
+# escribo por terminal
+# /imagen/video1 es el estándar que utiliza mi camara para visualizarla
+.\ffplay.exe -x 760 -y 428 -i 'rtsp://<usuario_de_camara>:<password_de_camara>@<IP_de_camara>/imagen/video1'
+
+
+================[forma 2]================================================================================================
+# Como obtener URL RTSP de camaras con soporte ONVIF
+
+1. Descargamos e instalamos "ONVIF Device Manager" desde https://sourceforge.net/projects/onvifdm/
+2. Abrimos ODM y buscamos camaras en nuestro entrno, nos logueamos si es necesario
+3. Pulsamos en la camara y seleccionamos live view. Debajo de la imagen aparece la ruta RTSP

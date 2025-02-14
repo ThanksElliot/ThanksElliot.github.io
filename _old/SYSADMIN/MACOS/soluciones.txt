@@ -1,0 +1,56 @@
+=======[índice]===========================================================================================
+
+  01 - conexión con servidor
+  02 - dar acceso a una aplicación a todo el disco
+  03 - como unir macOS a un Directorio Activo
+
+==========================================================================================================
+
+
+=======[conexión con servidor]============================================================================
+# Para conectarme a una unidad de red recordando credenciales después de reinicio:
+Finder > Ir > Conectarse a un servidro > <PROTOCOLO>://<IP_SERVIDOR> (smb://10.56.43.12)
+  > [x] Usuario registrado 
+  > Usuario de unidad red: ************
+  # para recordar la sesión pulsar el check:
+  > [x] Guardar esta contraseña en mi llavero
+    > # seleccionar carpeta compartida
+  
+# para anclarlo a la página de inicio se puede hacer arrastrando la unidad
+
+Finder > Ajustes > General > [x] Servidores Conectados
+
+==========================================================================================================
+
+
+=======[dar acceso a una aplicación a todo el disco]======================================================
+# para darle acceso a todo el disco a una aplicación:
+Finder > Ajustes de sistema > Privacidad y seguridad > Acceso a todo el disco > ON 
+Password Admin: ************
+
+# para dar/quitar acceso a las carpetas correspondientes de las aplicaciones:
+Finder > Ajustes de sistema > Privacidad y seguridad > Archivos y carpetas > OFF
+Password Admin: ************
+
+==========================================================================================================
+
+
+=======[como unir macOS a un Directorio Activo]===========================================================
+# El primer requisito es tener la conexión WiFi desactivada
+
+Finder > Preferencias del sistema > Usuarios y grupos 
+  # abrir candado de administrador de abajo 
+  > opciones de inicio 
+
+Nombre y contraseña > Acceder > abrir utilidades de directorio 
+  # abrir candado de administrador de abajo 
+  Active directory > ✏️
+
+Mostrar opciones > Administración > Permitir administración a:
+  Dominio de Active Directory: <DOMINIO_DE_ACTIVE_DIRECTORY>
+  Enlazar
+    Nombre y usuario: <USUARIO_DE_DOMINIO>
+    Contraseña: <CONTRASEÑA_DE_DOMINIO>
+    Aceptar
+
+==========================================================================================================

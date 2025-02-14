@@ -1,0 +1,59 @@
+========[Configuración]====================================
+
+# la 12F corresponde a 8266
+File > Preferences > Setting:
+# en el caso de esp32
+https://dl.espressif.com/dl/package_esp32_index.json
+
+Sketch > Include library > Manager library
+Boards Manager > esp32
+
+# tipo de placa
+ESP32 Dev Module
+
+# Si no reconoce la esp32 al meterla con cable C
+El problema puede ser por varias razones, pero lo más común es que el cable no permita el envío de datos y sea solo de carga.
+
+# código simple para comprobar su correcto funcionamiento
+Archivo > Ejemplos > Basics > Blink                          # en el caso de que no funcione lanzo el código de abajo 
++----------------------------------------------------------+
+// Definimos el pin del LED interno
+const int ledPin = 2; // El LED interno del ESP32 está en GPIO 2
+void setup() {
+  // Inicializamos el pin del LED como salida
+  pinMode(ledPin, OUTPUT); 
+  // Encendemos el LED al inicio
+  digitalWrite(ledPin, HIGH);
+  // Inicializamos la comunicación serie a 115200 baudios
+  Serial.begin(115200);
+}
+void loop() {
+  // Imprimimos "hola" en el monitor serie
+  Serial.println("hola");
+  
+  // Esperamos 500 milisegundos
+  delay(500);
+}
++----------------------------------------------------------+
+
+
+
+========[Configuración littlefs]===========================
+
+# para ir viendo todo lo que ocurre en los procesos pulsamos un circulo que hay arriba a la derecha (Serial Monitor)
+
+# para utilizar el sistema de archivos tengo que configurarlo porque no viene por defecto habilitado en la esp:
+https://randomnerdtutorials.com/esp32-littlefs-arduino-ide/
+
+# busco la ruta de destino en mi pc
+Archivo > Abrir > (xopio la ruta)
+
+# descargo el proyecto de esp32fs.zip y descomprimo el archivo esp32fs.jar en la carpeta: (raíz destino esp32) + /Arduino/tools/ESP32FS/tool/esp32fs.jar
+https://github.com/lorol/arduino-esp32fs-plugin/releases
+
+# reinicio el IDE del esp32
+
+# 
+
+
+

@@ -1,0 +1,224 @@
+####[ INSTALACIÓN INICIAL ]#####################################################
+################################################################################
+
+# Nunca entrar a los servidores desde los equipos como Administrador (excepto el departamento de IT)
+
+[Índice de instalación]:
+*****************************
+## 0. Antes de formatear
+## 1. Formateo del equipo
+## 2. Directorio activo	
+## 3. Acceso remoto	
+## 4. Servicio:Apolo	
+## 5. Impresoras
+## 6. Unidades de red
+## 7. Configurar Outlook|.pst	
+## 8. Backup de escritorio
+## 9. IP estática
+## 10. Otras configuraciones
+## 11. Instalar programas
+
+
+
+####[ PASO DE INSTALACIÓN ]#####################################################
+################################################################################
+
+============[ 0. Antes de formatear ]=================================================
+
+[caso A · dos ordenadores]:
+# Esta documentación esta pensada para dos ordenadores 
+# Esto es importante saberlo porque puedo en cualquier momento rescatar archivos...
+	- Ordenador viejo 
+	- Ordenador nuevo (Formateo)
+
+	Si este es tu caso sigue al punto 1 directamente...
+
+[caso B · un ordenador]:	
+# En el caso de que no sea tu caso y vas a formatear el mismo ordenador sigue estos pasos antes de formatear
+	- Guarda en un pincho una carpeta con el nombre de "Escritorio", con el escritorio 
+	- Haz un pantallazo al escritorio y a sus unidades de red (para mantener un orden)
+	- Extrae de forma apropiada el .pst y guardalo en un pincho como propone en el apartado 7
+	- Comprobar que tengo acceso a la clave de acceso antes de formatear (porque puedo recuperarla con Apolo) 
+	
+	
+============[ 1. Formateo del equipo ]=================================================
+
+# Formateo el equipo desde la unidad Ventoy. Copiando la clave de producto
+	Personalizada:instalar solo Windows (avanzado)
+	Nombre del dispositivo: <NOMBRE-PC>
+	Nombre de usuario: Usuario
+	Contraseña: Grafo#88 	(Los portatiles no llevan contraseña)
+	Uso profesional
+		> Opciones de inicio sesión
+			> Unirse a dominio <CREDENCIALES DE USUARIO LOCAL>
+			- Las preguntas de recuperación de sesión tengo que meter valores inexistentes
+	Sin permisos de ubicación
+	Deniego los permisos:
+		obligatorios : Enviar datos 
+		no : Mejorar las entradas manuscritas y la escritura
+		no : Obtener experiencias personalizadas
+	[	
+		Sin permiso a Windows
+		No usar datos con Windows
+		Sin publicidad
+	]
+	
+
+============[ 2. Directorio activo ]===================================================
+
+[En el caso de portatil no hay que hacerlo.]
+# Una vez formateado: 
+	Este equipo (botón derecho) > Propiedades > Sistema - Dominio o grupo de trabajo
+	(Descripción vacía) - Cambiar:
+		Nombre de equipo: <NOMBRE-PC>							# Isaac-PC
+		Dominio: <DOMINIO>
+			Aceptar >								# Me registro con la cuenta de administrador para comprobar el acceso 
+	# Se unió correctamente al dominio <DOMINIO>
+	# reiniciar
+	
+
+============[ 3. Acceso remoto ]=======================================================
+
+[En el caso de portatil no hay que hacerlo.]	
+# En el caso de que necesite acceder por acceso remoto
+	Panel de control > Sistema de seguridad > Opciones de energía >
+	Elegir el comportamiento de los botones de inicio/apagado
+	Cambiar la configuración actualmente no disponible   		# clicar
+		[ ] Hibernar                                        	# quitar el check de Hibernar
+		
+	Panel de control > Sistema de seguridad > Opciones de energía >
+	Cambiar frecuencia con la que el equipo entra en estado de suspensión
+	Canbiar la configuración del plan
+		Poner al equipo en estado de suspensión
+			[x] Nunca
+
+
+# Agregar el usuario al remoto del equipo
+	# Me dirijo a inicio 
+	Tecla Super + R 									# (botón derecho) > ejecutar
+	Lusrmgr.msc                     							# Ctrl + Shift + Enter para abrirlo como Administrador
+		Usuarios de escritorio remoto
+			Agregar : <NOMBRE_DE_USUARIO>
+				Comprobar nombre
+	Aceptar y guardar
+
+
+============[ 4. Servicio:Apolo ]=======================================================
+
+# Apolo es un servicio que busca todas las características del equipo y las guarda en una base de datos
+# para instalar apolo lo busco desde el servidor de descargas seguras para aplicaciones 
+# El archivo de instalación en el Setup Apolo Service v22.356
+	> Siguiente
+
+# Comprobar servicio
+	Tecla Super + Servicios > Apolo > Propiedadaes
+
+
+============[ 5. Impresoras ]===========================================================
+
+# Busco el driver de la impresora desde el servidor de descargas seguras para aplicaciones /Drivers
+# algunos drivers solo hace falta instalarlos
+[ ejecuto el driver ]:
+	[ ] When done unzipping open: ./install.exe					# opción desactivada
+	Unzip
+	
+[ configuro impresora ]:
+	Panel de control > Impresoras
+	Impresoras y escáneres > Agregar dispositivo > Agregar manualmente
+	[x] Agregar una impresora con una dirección IP o un nombre de host
+	Dispositivo TCP/IP | <IP de impresora>     	        			# agregar impresora con IP
+	# Instalar controlador de impresora: Usar disco...
+		C:\\<nombre-de-la-impresora>
+		# selecciono el primero y valido
+	Acepto la configuración
+	Nombre de la impresora: IMP-<rango de la impresora>				# IMP-OFICINAS
+		
+# Hay impresoras que se deben de configurar en escala de grises (por ejemplo las de oficinas):
+	Panel de control > Impresoras > #impresora-especifica > preferencias
+		> color > escala de grises
+	
+
+============[ 6. Unidades de red ]===========================================================	
+
+# Creo las unidades de red
+# desde una carpeta hago una búsqueda con:
+	\\<IP_O_HOST>
+	(botón derecho en una carpeta) > Conectar a unidad de red...
+
+
+============[ 7. Configurar Outlook|.pst ]===================================================	
+
+# ¡IMPORTANTE! Desde el equipo antiguo tengo que realizar los siguientes cambios:
+****************************************************************************************	
+	# Desactivar el mantener copia de seguridad:
+		- Panel de control > Mail > Cuentas de correo electrónico > (seleccionar cuenta) 
+		- Más configuración > Avanzadas:
+			+ [ ] Dejar una copia de los mensajes en el servidor		# opción desactivada 
+			+ [ ] Quitar el servidor después ... días			# opción desactivada
+			> Aceptar
+
+	# Abro el Outlook para enviar y recibir (Actualizar mensajes): 
+		- Abro el Outlook
+		- Selección Bandeja de entrada en la cuenta elegida
+			> Enviar y Recibir > Enviar y Recibir todas las carpetas 	# pulsar varias veces
+		- C:\Usuarios\<Usuario>\Documentos\Archivos de Outlook\<nombredelusuario@nombredeldominio>.pst
+		# Duplico este archiv .pst en la unidad USB
+
+
+# ¡IMPORTANTE! La instalación de Outlook la hago despues de instalar Microssoft Officce
+# ¡IMPORTANTE! Instalo Microssoft Officce antes de seguir al siguiente punto..
+# ¡IMPORTANTE! Desde el equipo formateado (nuevo):
+****************************************************************************************
+
+	# Instalar Microssoft Office
+	****************************
+	# pulsa las siguientes opciones nada mas iniciar el instalador:
+	- Enter an Office product key 
+		> ****-****-****-****
+	- Officce Open XML formats
+
+	# Migrar correo 
+	****************************
+	# Panel de control > Mail 							# si no funciona abro Outlook por primera vez
+	# en la misma pestaña donde configuro el correo tengo que importar el .pst 
+	# la carpeta de "Archivos de Outlook" se genera despues de darle a "Examinar" > Copio dentro de esa ruta el archivo .pst
+	- C:\Usuarios\<Usuario>\Documentos\Archivos de Outlook\<nombredelusuario@nombredeldominio>.pst
+	# En caso de tener varios .pst para una misma cuenta lo hago desde: "Archivos de datos > Agregar"
+	
+	# El siguiente paso es configurar las firmas: 
+		Nuevo mensaje > Firma > Firmas...
+	# Tengo que meter una firma distinta para "Mensajes nuevos" y otra para "Respuestas"
+
+
+============[ 8. Backup de escritorio ]======================================================	
+
+# Tengo que hacer una copia en el USB de todos los archivos que tenga el usuario en su equipo
+# Tengo que hacer un pantallazo del orden en el que tiene su escritorio
+# Tengo que hacer un pantallazo en este equipo de las unidades de red instaladas
+
+Creo una carpeta en el escritorio del equipo nuevo con todos sus archivos
+Desplazo los pantallazos al escritorio de su nuevo equipo por si el usuario quiere ordenarlo igual 
+
+
+============[ 9. IP estática ]===============================================================	
+
+# Asigno una IP estática controlada para el Active Directory
+	Tecla Super + Ver Conexiones De Red
+	Ethernet > (botón derecho) > Propiedades > TCP/IPv4
+		Zona DNS: 
+			1º preferido   	: (puerta de enlace del servidor de la VLAN Active Directory)
+			2º alternativo 	: (puerta de enlace de la IP del equipo)
+
+
+============[ 10. Otras configuraciones ]====================================================	
+
+# Configurar pantallas:
+Mi equipo > (botón derecho) Configuración > Pantalla > Expandir estas pantallas
+
+# Apunto "Mi Equipo" al escritorio
+Mi equipo > Personalización > Temas > Configuración de iconos de escritorio
+
+
+============[ 11. Instalar programas ]====================================================	
+ 
+# Para ver la documentación de los programas a isntalar mirar en repositorio privado...
