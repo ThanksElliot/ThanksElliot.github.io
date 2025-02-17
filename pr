@@ -4,7 +4,7 @@
 	Para eso editamos como administradores el archivo C:\Windows\System32\drivers\etc\hosts con el siguiente contenido:
 
 	10.1.50.21   	DC
-	10.1.50.22	 	BC
+	10.1.50.22	BC
 	10.1.50.23   	BC-SQL
 	10.1.50.27   	FS
 	10.1.50.29   	DF-SERVER
