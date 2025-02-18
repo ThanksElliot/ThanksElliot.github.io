@@ -1,7 +1,7 @@
 @echo off
 title Herramienta Avanzada de Seguridad - CMD
 color 0A
-
+setlocal EnableDelayedExpansion
 chcp 65001 >nul
 :menu
 cls
@@ -48,15 +48,16 @@ echo ===========================================================================
 echo    Mantenimiento de Seguridad
 echo ==================================================================================
 echo 1. Analizar equipo con Windows Defender en busca de virus
-echo 2. Ejecutar SFC (Buscar y restaura archivos del sistema)
+echo 2. Ejecutar SFC (Buscar y restaura archivos del sistema automagicamente)
 echo 3. Ejecutar DISM (Herramienta de administracion y mantenimiento de imagenes de implementacion)
-echo 4. Escanear vulnerabilidades con PowerShell
-echo 5. Obtener clave de producto de Windows
-echo 6. Analizar equipo en busca de virus
+echo 4. 
+echo 5. Obtener clave de producto de Windowsss
+echo 6. 
 echo 7. Verificar uso del disco
 echo 8. Buscar archivos ocultos
 echo 9. Limpiar archivos temporales
-echo 9. Salir
+echo 10. Invocar a Odin
+echo 11. Salir
 echo ==========================
 set /p option=Selecciona una opcion (1-8): 
 
@@ -67,8 +68,9 @@ if "%option%"=="4" goto powershell
 if "%option%"=="5" goto getkey
 if "%option%"=="7" goto diskusage
 if "%option%"=="8" goto searchhidden
-if "%option%"=="9" goto diskpartinfo
-if "%option%"=="10" exit
+if "%option%"=="9" goto cleantemp
+if "%option%"=="10" goto logactivity
+if "%option%"=="11" exit
 goto menu
 
 :scan
@@ -120,11 +122,25 @@ dism /Online /Cleanup-Image /RestoreHealth
 pause
 goto menu
 
-:powershell
-echo Escaneando vulnerabilidades con PowerShell...
-powershell -Command "Get-WindowsFeature | Where-Object { $_.InstallState -eq 'Installed' } | Select-Object Name, DisplayName"
+:scanvulnerabilities
+echo Escaneando vulnerabilidades del sistema...
+echo.
+
+:: Usar PowerShell para escanear vulnerabilidades
+powershell -Command "
+    $vulnerabilities = Get-WindowsUpdate | Where-Object { $_.IsInstalled -eq $false }
+    if ($vulnerabilities) {
+        Write-Host 'Actualizaciones de seguridad pendientes:'
+        $vulnerabilities | Select-Object -Property Title, Description
+    } else {
+        Write-Host 'No se encontraron vulnerabilidades conocidas.'
+    }
+"
+
 pause
 goto menu
+
+
 
 :getkey
 echo Obteniendo clave de producto de Windows...
@@ -156,12 +172,42 @@ if exist "%folder%" (
 pause
 goto menu
 
-:diskpartinfo
-echo Obteniendo información de las particiones del disco...
+:cleantemp
+echo Limpiando archivos temporales...
 echo.
 
-:: Usar WMIC para obtener información de las particiones
-wmic logicaldisk get caption,filesystem,freespace,size
+:: Eliminar archivos temporales
+del /q /f "%temp%\*"
 
+:: Confirmar la limpieza
+echo Archivos temporales eliminados.
 pause
+goto menu
+
+:logactivity
+
+:: Definir el archivo de registro
+set logFile="%USERPROFILE%\Desktop\Registro.txt"
+
+:: Punto para registrar la hora de inicio de sesión
+:Log-Activity
+setlocal
+set timestamp=%date% %time%
+echo %timestamp% - Un Odin travieso a pasado por aquí... >> %logFile%
+endlocal
+goto :eof
+
+:: Llamar a la función para registrar la hora de inicio de sesión
+call :Log-Activity
+:: Verificar si el archivo de registro existe, si no, crearlo
+if not exist %logFile% (
+    echo Creando archivo de registro...
+    echo. > %logFile%  :: Esto crea el archivo vacío
+)
+:: Llamar a la función para registrar la hora de inicio de sesión
+call :Log-Activity
+echo Hora de inicio de sesión registrada.
+pause
+goto menu
+
 goto menu
