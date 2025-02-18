@@ -1,7 +1,7 @@
 # voy a crear un usuario en el servidor de Asterisk, 
 
 #######################################################################################################
-									SERVIDOR pbx.grafometal.es
+	SERVIDOR pbx.grafometal.es
 #######################################################################################################
 1- lo primero es entrar en el servidor de pbx.grafometal.es
 2- lo segundo es entrar en el siguiente archivo y modificar el usuario que queramos agregar
@@ -21,7 +21,7 @@ vim /etc/asterisk/pjsip.conf
 
 
 #######################################################################################################
-									CONFIGURACIÓN tlf físico
+	CONFIGURACIÓN tlf físico
 #######################################################################################################
 
 1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
