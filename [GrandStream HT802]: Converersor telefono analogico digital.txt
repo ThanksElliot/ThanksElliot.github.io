@@ -14,14 +14,14 @@
 	Advanced setting > HTTP > Firmware Server Path: 
 	<IP_SERVIDOR_ASTERISK>/grandstream 			# esta ruta corresponde al servidor a /var/www/html/grandstream
 	[x] Always Check for New Firmware at Boot up	
-		> Apply > Upload > Reboot
+> Apply > Upload > Reboot
 
 	# comprobar desde STATUS si se a actualizado correctamente
 
 
 ===========================================================
 =======[ BASIC SETTINGS ]==================================
-# configuración por equipo
+# configuración minima de opciones por equipo:
 	Web Session Timeout: 30min
 	Web Access Attempt Limit: 5
 	Web Lockout Duration: 15min
@@ -30,11 +30,12 @@
 	Disable Telnet: Yes	
 
 # a partir de ahora tengo que entrar con https://
+> Apply > Reboot
 
 
 ===========================================================
 =======[ ADVANCED SETTINGS ]===============================
-# 
+# Configuración avanzada para restringir accesos, puertos, tonos:
 	New Admin Password:
 	**********************************
 		Admin Password: ******
@@ -74,7 +75,33 @@
 		Enable E911: No
 		HELD NAI:    No
 
-		> Apply
+> Apply > Reboot
+
+
+===========================================================
+=======[ FXS PORT1 ]=======================================
+# en el caso de configurar el port2 es lo mismo que este apartado
+# para configurar la IP perteneciente a Asterisk
+		Account Active: Yes
+		Primary SIP Server: <IP_DE_ASTERISK>
+		Allow DHCP Option 120 (override SIP server): No
+		...
+		SIP User ID: 2101
+		Authenticate ID: 2101
+        	Authenticate Password: --contraseña asterisk--  
+		Name: --vacio--
+		...
+		No Key Entry Timeout: 3 sec	# Tiempo que espera para enviar la marcacion
+		...
+		Gain: TX:-12dB  RX:+6dB 
+			# TX es la ganancia con la que emitimos, la bajamos para eliminar el ruido de fondo 
+			# RX es la ganancia con la que recibimos, la subimos para que puedan oir con el ruido de las maquinas
+		...
+		Preferred Vocoder: G722,PCMA,PCMU,G729
+		...
+		SLIC Setting: EUROPEAN CTR21
+		Caller ID Scheme: ETSI-FSK prior to ringing with RP
+
 
 	
 	
