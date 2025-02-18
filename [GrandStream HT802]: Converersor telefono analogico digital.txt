@@ -12,5 +12,9 @@
 # Actualizo de firmware
 	Advanced setting > HTTP > Firmware Server Path: 
 	<IP_SERVIDOR_ASTERISK>/grandstream 			# esta ruta corresponde al servidor a /var/www/html/grandstream
+	
+	Upload > Reboot
+	# Al reiniciar deberia descargar y actualziar el firmware, todos los leds parpadean a la vez mientras se actualiza
+
 
 	
