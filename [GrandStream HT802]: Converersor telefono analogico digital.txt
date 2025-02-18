@@ -9,4 +9,5 @@
 	   user:123          # Only Status and Basic Settings
 	   viewer:viewer     # View all pages. Changes not allowed
 
-# 
+# Actualizo de firmware
+	Advanced setting > 
