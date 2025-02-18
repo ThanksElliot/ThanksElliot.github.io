@@ -1,0 +1,74 @@
+========[ documentación de cambio de VLAN ]==============================
+=========================================================================
+
+# me conecto al switch 
+enable
+
+# muestra el estado y la configuración de todas las interfaces
+show interface brief
+
+-------------------------------------------------------------------------
+## entro en el Microtik y busco la mac asociada a la ip desde su terminal
+ping arp-ping=yes interface=ether3 192.168.0.105
+-------------------------------------------------------------------------
+
+# muestra las direcciones MAC filtrando por la última numeración de la mac (...B3.D1)
+# las mac en el switch tiene un compotamiento de XXXX.XXXX.XXXX.
+show mac address-table | include B3D1
+
+------------------------------------------
+Vlan    Mac Address       Type       Ports
+----    -----------       ----       -----
+1       1c1a.dfb8.b3d1    DYNAMIC    g0/35
+------------------------------------------
+
+## en el ejemplo anterior puedo ver como esta configurado para la VLAN 1 y la voy a cambiar a la 110
+
+
+	+---------------------------------------------------------------------+
+	|	# en el caso escepcional que quiera conocer la MAC de una boca	  |
+	|	show mac address-table interface g0/18							  |
+	+---------------------------------------------------------------------+
+	
+
+# entro al switch en modo configuración
+config
+
+# entro en la interface que quiero atacar 
+# una vez dentro de la interfaz los siguientes comandos corresponderán a esa interfaz que hemos entrado
+interface g0/35
+
+# le agrego una descripción a la interfaz en la que acabo de entrar
+# en el caso de que no quiera descripción o borrarla el comando es: no description
+description EJEMPLO1-PC
+
+## compruebo los cambios de la interface modificada
+# compruebo la descripción
+show interface g0/35
+
+# muestra la configuración actual de la interfaz g0/35
+show run int g0/35
+
+# desactiva la interfaz
+shutdown
+
+# le asigno una nueva VLAN (110) a la interfaz seleccionada
+switchport pvid 110
+
+# activa la interfaz seleccionada, llevándola a un estado "up", (con la nueva VLAN 110 subida)
+no shutdown
+
+# compruebo los datos 
+show interface brief
+
+# salgo de la interfaz actual en la que estoy (g0/35)
+quit
+
+# guardo los cambios (para que persistan los datos al reiniciar el switch)
+write
+
+# salir del modo config
+!
+
+# muestra la configuración actual en ejecución específica de la interfaz GigabitEthernet 0/35
+show running-config interface gigaEthernet 0/35
