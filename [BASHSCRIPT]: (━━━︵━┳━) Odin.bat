@@ -1,6 +1,7 @@
 @echo off
 title Herramienta Avanzada de Seguridad - CMD
 color 0A
+
 chcp 65001 >nul
 :menu
 cls
@@ -46,19 +47,59 @@ echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 echo ==================================================================================
 echo    Mantenimiento de Seguridad
 echo ==================================================================================
-echo 1. Escanear con Windows Defender
-echo 2. Ejecutar SFC (Comprobador de Archivos de Sistema)
-echo 3. Ejecutar DISM (Herramienta de Administracion y Mantenimiento de Imagenes de Implementacion)
+echo 1. Analizar equipo con Windows Defender en busca de virus
+echo 2. Ejecutar SFC (Buscar y restaura archivos del sistema)
+echo 3. Ejecutar DISM (Herramienta de administracion y mantenimiento de imagenes de implementacion)
 echo 4. Escanear vulnerabilidades con PowerShell
-echo 5. Salir
+echo 5. Obtener clave de producto de Windows
+echo 6. Analizar equipo en busca de virus
+echo 7. Verificar uso del disco
+echo 8. Buscar archivos ocultos
+echo 9. Limpiar archivos temporales
+echo 9. Salir
 echo ==========================
-set /p option=Selecciona una opcion (1-5): 
+set /p option=Selecciona una opcion (1-8): 
 
-if "%option%"=="1" goto defender
+if "%option%"=="1" goto scan
 if "%option%"=="2" goto sfc
 if "%option%"=="3" goto dism
 if "%option%"=="4" goto powershell
-if "%option%"=="5" exit
+if "%option%"=="5" goto getkey
+if "%option%"=="7" goto diskusage
+if "%option%"=="8" goto searchhidden
+if "%option%"=="9" goto diskpartinfo
+if "%option%"=="10" exit
+goto menu
+
+:scan
+echo Iniciando escaneo rápido con Windows Defender...
+start /wait "" "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 1
+
+:: Verificar el resultado del escaneo
+echo Verificando resultados del escaneo...
+for /f "tokens=*" %%a in ('powershell -command "(Get-MpThreat | Select-Object -ExpandProperty ThreatName)"') do (
+    echo !%%a! | findstr /i "malware" >nul
+    if !errorlevel! == 0 (
+        echo.
+        echo !%%a! >> resultados.txt
+    )
+)
+
+:: Mostrar resultados
+if exist resultados.txt (
+    echo.
+    echo Se han encontrado amenazas:
+    echo.
+    type resultados.txt
+    echo.
+    echo Los archivos maliciosos se han marcado en rojo.
+    echo.
+    del resultados.txt
+) else (
+    echo No se encontraron amenazas.
+)
+
+pause
 goto menu
 
 :defender
@@ -85,3 +126,42 @@ powershell -Command "Get-WindowsFeature | Where-Object { $_.InstallState -eq 'In
 pause
 goto menu
 
+:getkey
+echo Obteniendo clave de producto de Windows...
+for /f "delims=" %%i in ('powershell -command "(Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey"') do set "productKey=%%i"
+echo La clave de producto de Windows es: %productKey%
+pause
+goto menu
+
+:diskusage
+echo Verificando uso del disco...
+echo.
+
+powershell -Command "Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{Name='FreeSpace(GB)';Expression={[math]::round($_.Free/1GB,2)}}, @{Name='UsedSpace(GB)';Expression={[math]::round(($_.Used)/1GB,2)}}, @{Name='TotalSize(GB)';Expression={[math]::round(($_.Used + $_.Free)/1GB,2)}}"
+
+pause
+goto menu
+
+:searchhidden
+echo Buscando archivos ocultos en la carpeta especificada...
+set /p folder=Introduce la ruta de la carpeta (ejemplo: C:\Users\TuUsuario\Documentos): 
+
+if exist "%folder%" (
+    echo Archivos ocultos en %folder%:
+    dir /a:h "%folder%"
+) else (
+    echo La carpeta especificada no existe.
+)
+
+pause
+goto menu
+
+:diskpartinfo
+echo Obteniendo información de las particiones del disco...
+echo.
+
+:: Usar WMIC para obtener información de las particiones
+wmic logicaldisk get caption,filesystem,freespace,size
+
+pause
+goto menu
