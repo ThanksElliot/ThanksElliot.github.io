@@ -1,0 +1,2 @@
+# lm-sensors para monitorizar los grados del linux
+https://github.com/lm-sensors/lm-sensors
