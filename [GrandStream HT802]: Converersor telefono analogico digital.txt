@@ -1,0 +1,8 @@
+================================================
+=======[ CONEXION ]=============================
+# Lo conecto a corriente y a la toma de red de ethernet
+
+# Localizo la IP y me registro vía web, las credenciales por defecto son:
+Usuario:   admin
+Password:  admin
+
