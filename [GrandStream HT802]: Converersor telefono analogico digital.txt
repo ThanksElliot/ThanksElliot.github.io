@@ -5,9 +5,12 @@
 # Lo conecto a corriente y a la toma de red de ethernet
 
 # Localizo la IP y me registro vía web, entro con credenciales admin para realizar la configuración:
-	   admin:admin       # Full control
-	   user:123          # Only Status and Basic Settings
-	   viewer:viewer     # View all pages. Changes not allowed
+	   admin:admin       					# Full control
+	   user:123          					# Only Status and Basic Settings
+	   viewer:viewer     					# View all pages. Changes not allowed
 
 # Actualizo de firmware
-	Advanced setting > 
+	Advanced setting > HTTP > Firmware Server Path: 
+	<IP_SERVIDOR_ASTERISK>/grandstream 			# esta ruta corresponde al servidor a /var/www/html/grandstream
+
+	
