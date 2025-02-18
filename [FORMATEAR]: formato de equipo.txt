@@ -73,7 +73,7 @@
 	(Descripción vacía) - Cambiar:
 		Nombre de equipo: <NOMBRE-PC>							# Isaac-PC
 		Dominio: <DOMINIO>
-			Aceptar >											# Me registro la con cuenta de administrador para comprobar el acceso 
+			Aceptar >								# Me registro la con cuenta de administrador para comprobar el acceso 
 	# Se unió correctamente al dominio <DOMINIO>
 	# reiniciar
 	
@@ -84,8 +84,8 @@
 # En el caso de que necesite acceder por acceso remoto
 	Panel de control > Sistema de seguridad > Opciones de energía >
 	Elegir el comportamiento de los botones de inicio/apagado
-	Cambiar la configuración actualmente no disponible   		# clicar
-		[ ] Hibernar                                        	# quitar el check de Hibernar
+	Cambiar la configuración actualmente no disponible   					# clicar
+		[ ] Hibernar                                        				# quitar el check de Hibernar
 		
 	Panel de control > Sistema de seguridad > Opciones de energía >
 	Cambiar frecuencia con la que el equipo entra en estado de suspensión
@@ -96,7 +96,7 @@
 
 # Agregar el usuario al remoto del equipo
 	# Me dirijo a inicio 
-	Tecla Super + R 											# (botón derecho) > ejecutar
+	Tecla Super + R 									# (botón derecho) > ejecutar
 	Lusrmgr.msc                     							# Ctrl + Shift + Enter para abrirlo como Administrador
 		Usuarios de escritorio remoto
 			Agregar : <NOMBRE_DE_USUARIO>
@@ -120,19 +120,19 @@
 # Busco el driver de la impresora en //srvsoftware/Drivers
 # algunos drivers solo hace falta instalarlos
 [ ejecuto el driver ]:
-	[ ] When done unzipping open: ./install.exe					# opción desactivada
+	[ ] When done unzipping open: ./install.exe						# opción desactivada
 	Unzip
 	
 [ configuro impresora ]:
 	Panel de control > Impresoras
 	Impresoras y escáneres > Agregar dispositivo > Agregar manualmente
 	[x] Agregar una impresora con una dirección IP o un nombre de host
-	Dispositivo TCP/IP | <IP de impresora>     	        		# agregar impresora con IP
+	Dispositivo TCP/IP | <IP de impresora>     	        				# agregar impresora con IP
 	# Instalar controlador de impresora: Usar disco...
 		C:\\<nombre-de-la-impresora>
 		# selecciono el primero y valido
 	Acepto la configuración
-	Nombre de la impresora: IMP-<rango de la impresora>			# IMP-OFICINAS
+	Nombre de la impresora: IMP-<rango de la impresora>					# IMP-OFICINAS
 		
 # Hay impresoras que se deben de configurar en escala de grises (por ejemplo las de oficinas):
 	Panel de control > Impresoras > #impresora-especifica > preferencias
@@ -154,14 +154,14 @@
 	# Desactivar el mantener copia de seguridad:
 		- Panel de control > Mail > Cuentas de correo electrónico > (seleccionar cuenta) 
 		- Más configuración > Avanzadas:
-			+ [ ] Dejar una copia de los mensajes en el servidor		# opción desactivada 
-			+ [ ] Quitar el servidor después ... días					# opción desactivada
+			+ [ ] Dejar una copia de los mensajes en el servidor			# opción desactivada 
+			+ [ ] Quitar el servidor después ... días				# opción desactivada
 			> Aceptar
 
 	# Abro el Outlook para enviar y recibir (Actualizar mensajes): 
 		- Abro el Outlook
 		- Selección Bandeja de entrada en la cuenta elegida
-			> Enviar y Recibir > Enviar y Recibir todas las carpetas 	# pulsar varias veces
+			> Enviar y Recibir > Enviar y Recibir todas las carpetas 		# pulsar varias veces
 		- C:\Usuarios\<Usuario>\Documentos\Archivos de Outlook\<nombredelusuario@nombredeldominio>.pst
 		# Duplico este archiv .pst en la unidad USB
 
@@ -180,7 +180,7 @@
 
 	# Migrar correo 
 	*********************
-	# Panel de control > Mail 											# si no funciona abro Outlook por primera vez
+	# Panel de control > Mail 								# si no funciona abro Outlook por primera vez
 	# en la misma pestaña donde configuro el correo tengo que importar el .pst 
 	# la carpeta de "Archivos de Outlook" se genera despues de darle a "Examinar" > Copio dentro de esa ruta el archivo .pst
 	- C:\Usuarios\<Usuario>\Documentos\Archivos de Outlook\<nombredelusuario@nombredeldominio>.pst
@@ -223,28 +223,28 @@ Mi equipo > Personalización > Temas > Configuración de iconos de escritorio
 ============[ 11. Instalar programas ]====================================================	
  
 # Instalación para todos los equipos:
-	[●] WinRAR				# desde el servidor de \\software
-	[●] Apolo				# desde el servidor de \\software
-	[●] Acrobat Reader		# desde el servidor de \\software
-	[●] Chrome				# desde el servidor de \\software
+	[●] WinRAR										# desde el servidor de \\software
+	[●] Apolo										# desde el servidor de \\software
+	[●] Acrobat Reader									# desde el servidor de \\software
+	[●] Chrome										# desde el servidor de \\software
 # Opcionales:
-	[●] xmlnotepad			# desde el servidor de \\software
-	[●] juntarpdf			# desde el servidor de \\software
-	[●] VNC					# desde el servidor de \\software
+	[●] xmlnotepad										# desde el servidor de \\software
+	[●] juntarpdf										# desde el servidor de \\software
+	[●] VNC											# desde el servidor de \\software
 		└───────────> Exclusivo y obligatorio para equipos fuera de oficinas
-	[●] ESET - Antivirus	# desde el servidor de \\software
+	[●] ESET - Antivirus									# desde el servidor de \\software
 		└───────────> En el caso de ser un equipo, instalo "PROTECT 11.1" y luego "PROTECT Agent installer 11.2"
-	[●] Office				# desde el servidor de \\software/Microssoft Officce
+	[●] Office										# desde el servidor de \\software/Microssoft Officce
 		|───────────> Si existe busco la referencia en: \\fs/Informatica/Licencias/Micossoft/Microssoft Officce/Licencias.Microsoft.Office.xlsx
 		└───────────> Tiene que coincidir por año de la versión en "Edición" y la fecha de modificación del equipo a instalar en \\software.
-	[●] Perseo 				# desde el servidor de \\perseo/PERSEO2023
+	[●] Perseo 										# desde el servidor de \\perseo/PERSEO2023
 		└───────────> Depende del equipo que esté instalando, en el caso de oficinas SETUP GESTION/%%.exe
-	[●] Navision (Nuevo)	# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2020/ 
-	[●] Navision (Antiguo)	# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2019/
+	[●] Navision (Nuevo)									# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2020/ 
+	[●] Navision (Antiguo)									# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2019/
 		└───────────> Seguir guía
-	[●] DFserever			# desde el servidor de \\software
+	[●] DFserever										# desde el servidor de \\software
 		└───────────> Seguir guía
-	[●] Kodak			# el instalador se puede hacer de cualquiera de las dos rutas, (la primera es un acceso directo de la segunda):
-						# \\software/KODAK/WorkShop/Windows/*.exe
-						# \\software/KODAK/WorkShop/Windows/Disk1/InstData/VM/WorkshopInstaller.exe
+	[●] Kodak										# el instalador se puede hacer de cualquiera de las dos rutas, (la primera es un acceso directo de la segunda):
+												# \\software/KODAK/WorkShop/Windows/*.exe
+												# \\software/KODAK/WorkShop/Windows/Disk1/InstData/VM/WorkshopInstaller.exe
 		└───────────> Instalación de botón gordo hay que tener en cuenta que tengo que tener configurado el servidor de fs-kodak tanto por IP como nombre y recordando la contraseña de acceso.
