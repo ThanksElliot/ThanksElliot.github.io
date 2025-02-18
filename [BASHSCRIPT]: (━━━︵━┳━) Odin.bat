@@ -50,9 +50,9 @@ echo ===========================================================================
 echo 1. Analizar equipo con Windows Defender en busca de virus
 echo 2. Ejecutar SFC (Buscar y restaura archivos del sistema automagicamente)
 echo 3. Ejecutar DISM (Herramienta de administracion y mantenimiento de imagenes de implementacion)
-echo 4. 
-echo 5. Obtener clave de producto de Windowsss
-echo 6. 
+echo 4. Buscar procesos sospechosos
+echo 5. Obtener clave de producto de Windows
+echo 6. Ver conexiones de red activas
 echo 7. Verificar uso del disco
 echo 8. Buscar archivos ocultos
 echo 9. Limpiar archivos temporales
@@ -64,8 +64,9 @@ set /p option=Selecciona una opcion (1-8):
 if "%option%"=="1" goto scan
 if "%option%"=="2" goto sfc
 if "%option%"=="3" goto dism
-if "%option%"=="4" goto powershell
+if "%option%"=="4" goto procesos
 if "%option%"=="5" goto getkey
+if "%option%"=="6" goto conexiones
 if "%option%"=="7" goto diskusage
 if "%option%"=="8" goto searchhidden
 if "%option%"=="9" goto cleantemp
@@ -140,12 +141,30 @@ powershell -Command "
 pause
 goto menu
 
-
+:procesos
+cls
+echo 🕵️‍♂️ Procesos en ejecución:
+echo ============================================
+tasklist /v | findstr /i "exe"
+echo ============================================
+echo 🔎 Si ves nombres extraños, investígalos en Google.
+pause
+goto menu
 
 :getkey
 echo Obteniendo clave de producto de Windows...
 for /f "delims=" %%i in ('powershell -command "(Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey"') do set "productKey=%%i"
 echo La clave de producto de Windows es: %productKey%
+pause
+goto menu
+
+:conexiones
+cls
+echo 🌐 Conexiones de red activas:
+echo ============================================
+netstat -ano
+echo ============================================
+echo 🛑 Si ves una IP desconocida conectada a un puerto extraño, investígala.
 pause
 goto menu
 
