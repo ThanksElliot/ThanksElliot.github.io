@@ -1,3 +1,4 @@
+[Explicación inicial]:
 #############[ CONSOLA ]########################################
 # Para entrar con la boca de consola del switch, tengo que saber antes cual es la COM por la que voy acceder y el speed que me va a proporcionar 
 # el speed tengo  que ponerlo exacto para que se pueda reproducir para carácter humano 
@@ -33,3 +34,45 @@ dir
 copy
 delete
 show logging
+
+==========================================================================================
+==========================================================================================
+==========================================================================================
+==========================================================================================
+
+[Manual de uso]:
+=====================================================================
+# Descargo el nuevo Firewall desde la página de fs 
+# guardo el archivo binario dentro de una carpeta local del pc
+"Modelo_Switch" > Recursos > ver todos > "filtrar por software"
+
+=====================================================================
+[Configuración Switch]:
+
+# descargo el programa tftpd64 
+https://pjo2.github.io/tftpd64/
+Current Directory: <Carpeta local pc>
+Server Interface: <IP local pc>
+
+# compruebo la memoria del switch y sus archivos
+dir /
+
+	# borro el archivo SYS_CORE_DUMP que es el archivo de configuración para liberar espacio 
+	# primero hago un backup, tengo que pasarle el nombre exacto del archivo 
+	copy flash: tftp:
+
+	# borro el archivo SYS_CORE_DUMP
+	delete /SYS_CORE_DUMP
+	
+	
+# migro a través del ftpt de mi equipo el nuevo firewall 
+copy tftp: flash:
+
+# entro con privilegio de configuración
+config 
+
+# configuro el nuevo archivo para que lo lea primero en el arranque 
+boot system flash fw-2.2.0E-94091.bin
+
+# guardo como all porque he podido entrar al configurar ifindex
+write 
