@@ -14,11 +14,7 @@
 	Advanced setting > HTTP > Firmware Server Path: 
 	<IP_SERVIDOR_ASTERISK>/grandstream 			# esta ruta corresponde al servidor a /var/www/html/grandstream
 	[x] Always Check for New Firmware at Boot up	
-	Upload > Reboot
-
-	# una vez actualizado y reiniciado 
-	[x]  Check New Firmware only when F/W pre/suffix changes
-	Upload
+		> Apply > Upload > Reboot
 
 	# comprobar desde STATUS si se a actualizado correctamente
 
@@ -33,7 +29,53 @@
 	Disable SSH: Yes
 	Disable Telnet: Yes	
 
+# a partir de ahora tengo que entrar con https://
+
 
 ===========================================================
 =======[ ADVANCED SETTINGS ]===============================
 # 
+	New Admin Password:
+	**********************************
+		Admin Password: ******
+		Disable User Level Web Access: Yes
+		Disable Viewer Level Web Access: Yes
+
+	Firmware Upgrade and Provisioning:
+	**********************************
+		[x] HTTPS
+		Firmware Server Path<IP_SERVIDOR_ASTERISK>/grandstream
+		Config Server Path: --vacio--
+		Allow DHCP Option 66 or 160 to override server: No
+		3CX Auto Provision: No
+		[x] ays Check for New Firmware at Boot up
+		Enable TR-069: No
+		Periodic Inform Enable: No
+		Enable SNMP: No
+		Enable RADIUS Web Access Control: No
+		Enable DDNS: No
+		Enable OpenVPN: No
+
+	Tonos para España:
+	**********************************
+		System Ring Cadence: 	c=1500/3000;
+		Dial Tone:		f1=425@0,c=0/0;
+		Ringback Tone:	  	ff1=425@0,c=1500/3000;
+		Busy Tone:	  	f1=425@0,c=200/200;
+		Reorder Tone: 		f1=425@0,c=200/200-200/200-200/600;
+		Confirmation Tone:	f1=425@0,c=175/175-175/3500-100/100;
+		Call Waiting Tone:	f1=425@0,c=425/350;
+		Prompt Tone:	  	f1=425@0,c=440@-17,c=0/0;
+		Conference Party..:	f1=425@0,c=600/600;
+		Special Proceed...:	f1=425@0, c=750/750-0/0;
+			
+	Numeros de emergencia
+	**********************************
+		Enable E911: No
+		HELD NAI:    No
+
+		> Apply
+
+	
+	
+	
