@@ -1,0 +1,35 @@
+#############[ CONSOLA ]########################################
+# Para entrar con la boca de consola del switch, tengo que saber antes cual es la COM por la que voy acceder y el speed que me va a proporcionar 
+# el speed tengo  que ponerlo exacto para que se pueda reproducir para carácter humano 
+putty > Serial > COM1 > Speed 
+
+#############[ TFTP ]########################################
+# descargo archivo
+Tftpd64
+https://pjo2.github.io/tftpd64/
+
+# permiso de usuario
+enable
+
+# configuro el programa
+Current Directory: <directorio de la carpeta del pc>
+Server interfaces: <ip del pc>
+
+# con este comando paso por tftp desde el programa tftpd hacia el switch
+# en tftp meto la ip de mi pc y en flash la ip del switch
+# una vez lanzado me pedirá el nombre del archivo
+copy tftp:10.1.10.40 flash:10.1.99.36
+
+# trás lanzar el comando nos pedirá que escribamos el nombre del archivo al que queremos atacar
+
+# también puedo hacerlo al reves y mandar desde el switch a la carpeta del equipo
+copy flash:10.1.99.36 tftp:10.1.10.40 
+
+==========================================================================================
+
+# puedo utilizar " <comando> ? " para buscar info del comando
+enable
+dir
+copy
+delete
+show logging
