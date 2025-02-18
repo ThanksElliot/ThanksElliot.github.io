@@ -4,9 +4,9 @@
 =======[ CONEXION ]=============================
 # Lo conecto a corriente y a la toma de red de ethernet
 
-# Localizo la IP y me registro vía web, las credenciales por defecto son:
-Usuario:   admin
-Password:  admin
+# Localizo la IP y me registro vía web, entro con credenciales admin para realizar la configuración:
+	   admin:admin       # Full control
+	   user:123          # Only Status and Basic Settings
+	   viewer:viewer     # View all pages. Changes not allowed
 
-
-
+# 
