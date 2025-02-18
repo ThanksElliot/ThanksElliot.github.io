@@ -86,9 +86,9 @@
 		Primary SIP Server: <IP_DE_ASTERISK>
 		Allow DHCP Option 120 (override SIP server): No
 		...
-		SIP User ID: 2101
-		Authenticate ID: 2101
-        	Authenticate Password: --contraseña asterisk--  
+		SIP User ID: <EXTENSIÓN_ASTERISK>
+		Authenticate ID: <EXTENSIÓN_ASTERISK>
+        	Authenticate Password: <CONTRASEÑA_ASTERISK> 
 		Name: --vacio--
 		...
 		No Key Entry Timeout: 3 sec	# Tiempo que espera para enviar la marcacion
@@ -103,6 +103,7 @@
 		Caller ID Scheme: ETSI-FSK prior to ringing with RP
 
 
-	
-	
+===========================================================
+=======[ ASTERISK ]========================================	
+# para crear un nuevo usuario y extensión ver la documentación de: [LINUX ASTERISK] Agregar usuario telefonico.txt
 	
