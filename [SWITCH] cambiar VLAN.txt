@@ -25,10 +25,10 @@ Vlan    Mac Address       Type       Ports
 ## en el ejemplo anterior puedo ver como esta configurado para la VLAN 1 y la voy a cambiar a la 110
 
 
-	+---------------------------------------------------------------------+
-	|	# en el caso escepcional que quiera conocer la MAC de una boca	  |
-	|	show mac address-table interface g0/18							  |
-	+---------------------------------------------------------------------+
+	+-----------------------------------------------------------------------+
+	|	# en el caso escepcional que quiera conocer la MAC de una boca	|
+	|	show mac address-table interface g0/18				|
+	+-----------------------------------------------------------------------+
 	
 
 # entro al switch en modo configuración
