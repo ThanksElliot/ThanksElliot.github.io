@@ -1,7 +1,7 @@
 ## [GrandStream HT802]: Convierte la señal analogica de telefonía a digital para registrar la IP y conocer su activación con Asterisk
 
-================================================
-=======[ CONEXION ]=============================
+===========================================================
+=======[ CONEXION Y FIRMWARE ]=============================
 # Lo conecto a corriente y a la toma de red de ethernet
 
 # Localizo la IP y me registro vía web, entro con credenciales admin para realizar la configuración:
@@ -10,11 +10,30 @@
 	   viewer:viewer     					# View all pages. Changes not allowed
 
 # Actualizo de firmware
+# Al reiniciar deberia descargar y actualziar el firmware, todos los leds parpadean a la vez mientras se actualiza
 	Advanced setting > HTTP > Firmware Server Path: 
 	<IP_SERVIDOR_ASTERISK>/grandstream 			# esta ruta corresponde al servidor a /var/www/html/grandstream
-	
+	[x] Always Check for New Firmware at Boot up	
 	Upload > Reboot
-	# Al reiniciar deberia descargar y actualziar el firmware, todos los leds parpadean a la vez mientras se actualiza
+
+	# una vez actualizado y reiniciado 
+	[x]  Check New Firmware only when F/W pre/suffix changes
+	Upload
+
+	# comprobar desde STATUS si se a actualizado correctamente
 
 
-	
+===========================================================
+=======[ BASIC SETTINGS ]==================================
+# configuración por equipo
+	Web Session Timeout: 30min
+	Web Access Attempt Limit: 5
+	Web Lockout Duration: 15min
+	Web Access Mode: HTTPS
+	Disable SSH: Yes
+	Disable Telnet: Yes	
+
+
+===========================================================
+=======[ ADVANCED SETTINGS ]===============================
+# 
