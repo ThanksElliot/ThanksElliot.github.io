@@ -43,9 +43,9 @@ echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkc;;;;;:::dKWMMMMMMMMMMMMMMMMMMMMMMMMM
 echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0dooodoldKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWWNXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-echo =================================================================================
+echo ==================================================================================
 echo    Mantenimiento de Seguridad
-echo =================================================================================
+echo ==================================================================================
 echo 1. Escanear con Windows Defender
 echo 2. Ejecutar SFC (Comprobador de Archivos de Sistema)
 echo 3. Ejecutar DISM (Herramienta de Administracion y Mantenimiento de Imagenes de Implementacion)
