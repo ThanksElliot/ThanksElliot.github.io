@@ -1,3 +1,5 @@
+## [GrandStream HT802]: Convierte la señal analogica de telefonía a digital para registrar la IP y conocer su activación con Asterisk
+
 ================================================
 =======[ CONEXION ]=============================
 # Lo conecto a corriente y a la toma de red de ethernet
@@ -5,4 +7,6 @@
 # Localizo la IP y me registro vía web, las credenciales por defecto son:
 Usuario:   admin
 Password:  admin
+
+
 
