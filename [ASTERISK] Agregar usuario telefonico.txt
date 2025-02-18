@@ -1,0 +1,31 @@
+# voy a crear un usuario en el servidor de Asterisk, 
+
+#######################################################################################################
+									SERVIDOR pbx.grafometal.es
+#######################################################################################################
+1- lo primero es entrar en el servidor de pbx.grafometal.es
+2- lo segundo es entrar en el siguiente archivo y modificar el usuario que queramos agregar
+vim /etc/asterisk/pjsip.conf
+3- una vez lanazado ejecuto el servicio con systemctl reload asterisk
+4- luego entro en la siguiente dirección cd /var/www/html/ 
+	# funciona de la siguiente manera el archivo generar-csv-internos.sh sirve para agregar la lista de telefonillos internos a internos.csv 
+    # funciona de la siguiente manera el archivo generar-csv-externos.sh sirve para agregar la lista de telefonillos internos a externos.csv
+    # luego ejecuto el script de actualiza-agendas.sh para actualizar las listas en los teléfonos
+    
+    ./generar-csv-internos.sh > internos.csv
+    ./generar-csv-externos.sh > externos.csv
+	./actualiza-agendas.sh
+
+5- systemctl reload asterisk
+
+
+
+#######################################################################################################
+									CONFIGURACIÓN tlf físico
+#######################################################################################################
+
+1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
+2- entro por https a través de la ip: https://<dirección_IP>
+3- agrego el usuario y contraseña que tenemos en la documentación "Informatica"
+4- dentro de la web pulso en "linea" y desde ahí busco el nombre que tengo que modificar (porque tendra la configuración y el nombre de otro usuario).
+
