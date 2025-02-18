@@ -57,7 +57,8 @@ echo 7. Verificar uso del disco
 echo 8. Buscar archivos ocultos
 echo 9. Limpiar archivos temporales
 echo 10. Invocar a Odin
-echo 11. Salir
+echo 11. Enviar información de red por correo
+echo 12. Salir
 echo ==========================
 set /p option=Selecciona una opcion (1-8): 
 
@@ -71,7 +72,8 @@ if "%option%"=="7" goto diskusage
 if "%option%"=="8" goto searchhidden
 if "%option%"=="9" goto cleantemp
 if "%option%"=="10" goto logactivity
-if "%option%"=="11" exit
+if "%option%"=="11" goto sendnetworkinfo
+if "%option%"=="12" exit
 goto menu
 
 :scan
@@ -144,9 +146,9 @@ goto menu
 :procesos
 cls
 echo 🕵️‍♂️ Procesos en ejecución:
-echo ============================================
+echo ==================================================================================
 tasklist /v | findstr /i "exe"
-echo ============================================
+echo ==================================================================================
 echo 🔎 Si ves nombres extraños, investígalos en Google.
 pause
 goto menu
@@ -161,9 +163,9 @@ goto menu
 :conexiones
 cls
 echo 🌐 Conexiones de red activas:
-echo ============================================
+echo ==================================================================================
 netstat -ano
-echo ============================================
+echo ==================================================================================
 echo 🛑 Si ves una IP desconocida conectada a un puerto extraño, investígala.
 pause
 goto menu
@@ -229,4 +231,45 @@ echo Hora de inicio de sesión registrada.
 pause
 goto menu
 
+:sendnetworkinfo
+echo Enviando información de red por correo...
+setlocal
+
+:: Obtener dirección IP
+for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr /i "IPv4"') do set "ip_address=%%i"
+set "ip_address=%ip_address: =%"
+
+:: Obtener dirección MAC
+for /f "tokens=2 delims=:" %%i in ('getmac') do set "mac_address=%%i"
+set "mac_address=%mac_address: =%"
+
+:: Configuración del correo
+set "smtp_server=smtp.gmail.com"
+set "sender_email="
+set "receiver_email="
+set "password=123456789"
+
+:: Crear el cuerpo del mensaje
+set "body=Dirección IP: %ip_address%`nDirección MAC: %mac_address%"
+
+:: Crear un archivo temporal para el cuerpo del mensaje
+echo %body% > "%temp%\email_body.txt"
+
+:: Enviar el correo usando PowerShell
+powershell -Command "Send-MailMessage -From '%sender_email%' -To '%receiver_email%' -Subject 'Información de Red' -Body (Get-Content '%temp%\email_body.txt' -Raw) -SmtpServer '%smtp_server%' -Port 587 -UseSsl -Credential (New-Object System.Management.Automation.PSCredential('%sender_email%', (ConvertTo-SecureString '%password%' -AsPlainText -Force)))"
+
+:: Limpiar el archivo temporal
+del "%temp%\email_body.txt"
+echo ==================================================================================
+echo    Información de la Red
+echo ==================================================================================
+echo Dirección IP:
+ipconfig | findstr /i "IPv4"
+echo.
+echo Dirección MAC:
+getmac
+echo ==================================================================================
+pause
+echo Información de red enviada.
+pause
 goto menu
