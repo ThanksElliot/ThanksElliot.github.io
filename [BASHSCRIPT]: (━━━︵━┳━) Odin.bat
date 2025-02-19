@@ -57,7 +57,7 @@ echo 7. Verificar uso del disco
 echo 8. Buscar archivos ocultos
 echo 9. Limpiar archivos temporales
 echo 10. Invocar a Odin
-echo 11. Enviar información de red por correo
+echo 11. Escanear red / Esnifar red
 echo 12. Salir
 echo ==========================
 set /p option=Selecciona una opcion (1-8): 
@@ -72,7 +72,7 @@ if "%option%"=="7" goto diskusage
 if "%option%"=="8" goto searchhidden
 if "%option%"=="9" goto cleantemp
 if "%option%"=="10" goto logactivity
-if "%option%"=="11" goto sendnetworkinfo
+if "%option%"=="11" goto networkinfo
 if "%option%"=="12" exit
 goto menu
 
@@ -231,45 +231,59 @@ echo Hora de inicio de sesión registrada.
 pause
 goto menu
 
-:sendnetworkinfo
-echo Enviando información de red por correo...
+:networkinfo
 setlocal
 
 :: Obtener dirección IP
-for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr /i "IPv4"') do set "ip_address=%%i"
-set "ip_address=%ip_address: =%"
+set "ip_address="
+set "ip_address_6="
+set "ip_gateway="
+set "description="
 
-:: Obtener dirección MAC
-for /f "tokens=2 delims=:" %%i in ('getmac') do set "mac_address=%%i"
-set "mac_address=%mac_address: =%"
+for /f "tokens=1,* delims=:" %%a in ('ipconfig') do (
+    set "ip_address=%%i"
+    set "ip_address=%ip_address: =%"
 
-:: Configuración del correo
-set "smtp_server=smtp.gmail.com"
-set "sender_email="
-set "receiver_email="
-set "password=123456789"
+    set "ip_address_6=%%i"
+    set "ip_address_6=%ip_address_6: =%"
 
-:: Crear el cuerpo del mensaje
-set "body=Dirección IP: %ip_address%`nDirección MAC: %mac_address%"
+    set "ip_gateway=%%i"
+    set "ip_gateway=%ip_gateway: =%"
 
-:: Crear un archivo temporal para el cuerpo del mensaje
-echo %body% > "%temp%\email_body.txt"
-
-:: Enviar el correo usando PowerShell
-powershell -Command "Send-MailMessage -From '%sender_email%' -To '%receiver_email%' -Subject 'Información de Red' -Body (Get-Content '%temp%\email_body.txt' -Raw) -SmtpServer '%smtp_server%' -Port 587 -UseSsl -Credential (New-Object System.Management.Automation.PSCredential('%sender_email%', (ConvertTo-SecureString '%password%' -AsPlainText -Force)))"
+    set "description=%%i"
+)
 
 :: Limpiar el archivo temporal
-del "%temp%\email_body.txt"
 echo ==================================================================================
 echo    Información de la Red
 echo ==================================================================================
-echo Dirección IP:
+echo .
+:: Obtener dirección IP
+
+echo Descripcion:
+echo ==================================================================================
+:: Para obtener la descripción de la interfaz, puedes usar el comando 'netsh'
+netsh interface show interface
+echo ==================================================================================
+
+echo Direccion IP:
 ipconfig | findstr /i "IPv4"
 echo.
-echo Dirección MAC:
+
+echo Direccion IPv6:
+echo ==================================================================================
+ipconfig | findstr /i "IPv6"
+echo.
+
+echo Direccion MAC:
 getmac
 echo ==================================================================================
-pause
+
+echo Puerta de enlace:
+echo ==================================================================================
+ipconfig | findstr /i "Puerta de enlace"
+echo ==================================================================================
+
 echo Información de red enviada.
 pause
 goto menu
