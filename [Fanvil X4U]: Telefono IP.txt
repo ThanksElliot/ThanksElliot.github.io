@@ -25,8 +25,43 @@
 		> Borro el usuario Guest
 		> Cambio la password de admin
 	# el password del tlf es por defecto : 123 
-		> Puedo cambiarla desde el tlf
-
+		> Puedo cambiarla desde el tlf, (cambio la password por la que tengo que utilizar)
+	# desactivo el SIP Pnp
+		> System > Auto Provision > Enable SIP PnP: [ ]
+	# configuro la red
+		> Network > Basic > Network Adapter :
+		---[ NETWORK ]--------------------------------------------------------------------
+		Basic
+			Network Adapter Priority: Ethernet
+			Net Type: Ethernet
+			Network Mode: IPv4 Only
+			IPv4 Settings: DHCP 
+			DNS Server Configured by: DHCP
+			
+		Service Port Settings
+			Web Server Type: HTTP
+			Web Logon Timeout: 30
+			// Despues de guardar hay que reiniciar para que los cambios se apliquen
+			
+		Advanced
+			DHCP VLAN Settings: Disabled
+	# configuro la termina y el servidor del dispositivo
+		> Line > SIP :
+		---[ LINE ]-----------------------------------------------------------------------
+			SIP
+				Line: SIP-1
+				Line Status: Active
+				
+				Username: 2040
+				Authentication User: 2040
+				Authentication Password: pw2040
+				
+				SIP Server 1
+					Server Address:	xx.xx.xx.xx (IP_DE_SERVIDOR)
+					...
+			
+			DIAL PLAN
+				Send after 3 seconds
 
 
 #######################################################################################################
