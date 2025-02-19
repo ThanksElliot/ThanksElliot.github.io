@@ -2,8 +2,23 @@
 	CONEXIÓN tlf físico
 #######################################################################################################
 
-# conecto el cable de ethernet 
-  [conector]: esquema de ordenadores en árbol
+# conecto el cable de ethernet:
+	[conector]: esquema de ordenadores en árbol
+
+# Busco desde el tlf la IP asignada por DHCP y entro vía WEB:
+	[tlf]: Menú > Estado > ETH IP: xx.xx.xx.xx
+	# usuarios por defecto:
+	admin:admin
+	guest:guest
+
+# Busco el nuevo Firmware y lo descargo la última versión
+	# el archivo es un tipo .z hay que subirlo tal cual
+	https://fanvil.com/service/doc/index.html
+	
+# Una vez en la WEB:
+********************
+	
+
 
 
 
@@ -11,8 +26,8 @@
 #######################################################################################################
 	CONFIGURACIÓN tlf físico
 #######################################################################################################
-  
-  1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
-  2- entro por https a través de la ip: https://<dirección_IP>
-  3- agrego el usuario y contraseña que tenemos en la documentación
-  4- dentro de la web pulso "en linea" y desde ahí busco el nombre que tengo que modificar (porque tendra la configuración y el nombre de otro usuario).
+	  
+	1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
+	2- entro por https a través de la ip: https://<dirección_IP>
+	3- agrego el usuario y contraseña que tenemos en la documentación
+	4- dentro de la web pulso "en linea" y desde ahí busco el nombre que tengo que modificar (porque tendra la configuración y el nombre de otro usuario).
