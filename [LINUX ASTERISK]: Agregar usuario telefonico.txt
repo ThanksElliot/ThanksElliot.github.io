@@ -24,6 +24,11 @@ asterisk -rvvvv
     	# para actualizar las listas en los teléfonos
 		./actualiza-agendas.sh
 
+	# compruebo los cambios en el servidor 
+	cd /var/www/html/fanvil
+	vim internos.xml
+
+	# compruebo los cambios de forma física
 
 #######################################################################################################
 	CONFIGURACIÓN tlf físico
