@@ -45,6 +45,9 @@
 			
 		Advanced
 			DHCP VLAN Settings: Disabled
+	
+	# antes de seguir al siguiente apartado hay que agregar un usuario como explico en la siguiente documentación de Asterisk: 
+		> [LINUX ASTERISK]: Agregar usuario telefonico.txt
 	# configuro la termina y el servidor del dispositivo
 		> Line > SIP :
 		---[ LINE ]-----------------------------------------------------------------------
@@ -52,9 +55,9 @@
 				Line: SIP-1
 				Line Status: Active
 				
-				Username: 2040
-				Authentication User: 2040
-				Authentication Password: pw2040
+				Username: <REGISTRO_ASTERISK>
+				Authentication User: <REGISTRO_ASTERISK>
+				Authentication Password: <PASSWORD_ASTERISK>
 				
 				SIP Server 1
 					Server Address:	xx.xx.xx.xx (IP_DE_SERVIDOR)
