@@ -3,6 +3,9 @@ title Herramienta Avanzada de Seguridad - CMD
 color 0A
 setlocal EnableDelayedExpansion
 chcp 65001 >nul
+
+:: Establecer tamaño de la consola al máximo posible
+mode con: cols=99999999999 lines=99999999999
 :menu
 cls
 echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -154,8 +157,11 @@ pause
 goto menu
 
 :getkey
+@echo off
 echo Obteniendo clave de producto de Windows...
-for /f "delims=" %%i in ('powershell -command "(Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey"') do set "productKey=%%i"
+for /f "tokens=* delims=" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+    "$key=(Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey; if ($key) { Write-Output $key } else { Write-Output 'No se encontró clave' }"') do set "productKey=%%i"
+
 echo La clave de producto de Windows es: %productKey%
 pause
 goto menu
@@ -194,11 +200,15 @@ pause
 goto menu
 
 :cleantemp
+@echo off
 echo Limpiando archivos temporales...
 echo.
 
-:: Eliminar archivos temporales
-del /q /f "%temp%\*"
+:: Eliminar archivos dentro de la carpeta TEMP
+del /s /q "%temp%\*.*"
+
+:: Eliminar carpetas vacías dentro de TEMP
+for /d %%x in ("%temp%\*") do rd /s /q "%%x"
 
 :: Confirmar la limpieza
 echo Archivos temporales eliminados.
@@ -241,7 +251,7 @@ set "ip_gateway="
 set "description="
 
 for /f "tokens=1,* delims=:" %%a in ('ipconfig') do (
-    set "ip_address=%%i"
+    set "ip_address=%%i"ac
     set "ip_address=%ip_address: =%"
 
     set "ip_address_6=%%i"
