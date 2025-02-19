@@ -2,10 +2,10 @@
 	CONEXIÓN tlf físico
 #######################################################################################################
 
-# conecto el cable de ethernet:
+# conecto el cable de ethernet
 	[conector]: esquema de ordenadores en árbol
 
-# Busco desde el tlf la IP asignada por DHCP y entro vía WEB:
+# Busco desde el tlf la IP asignada por DHCP y entro vía WEB
 	[tlf]: Menú > Estado > ETH IP: xx.xx.xx.xx
 	# usuarios por defecto:
 	admin:admin
@@ -17,9 +17,15 @@
 	
 # Una vez en la WEB:
 ********************
-	
+	# actualizo el Firmware
+	System > Upgrade > Software Upgrade > select: *.z > Upgrade
 
-
+	# modifico los datos de usuario
+	System > Account :
+		> Borro el usuario Guest
+		> Cambio la password de admin
+	# el password del tlf es por defecto : 123 
+		> Puedo cambiarla desde el tlf
 
 
 
