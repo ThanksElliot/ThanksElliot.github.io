@@ -1,0 +1,18 @@
+#######################################################################################################
+	CONEXIÓN tlf físico
+#######################################################################################################
+
+# conecto el cable de ethernet 
+  [conector]: esquema de ordenadores en árbol
+
+
+
+
+#######################################################################################################
+	CONFIGURACIÓN tlf físico
+#######################################################################################################
+  
+  1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
+  2- entro por https a través de la ip: https://<dirección_IP>
+  3- agrego el usuario y contraseña que tenemos en la documentación
+  4- dentro de la web pulso "en linea" y desde ahí busco el nombre que tengo que modificar (porque tendra la configuración y el nombre de otro usuario).
