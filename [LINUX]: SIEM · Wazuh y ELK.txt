@@ -65,4 +65,17 @@ OpenVAS :
 
 
 ########################################################################################################################################
-##################[ I N S T A L A C I O N · S I E M ]###################################################################################
+##################[ F O R M A 3 - R E C U R S O S · S I E M ]###########################################################################
+ALIENVAULT :   
+    [Gestión de Eventos e Información de Seguridad (SIEM)]: 
+        AlienVault ofrece capacidades de SIEM que permiten la recopilación y análisis de datos de seguridad en tiempo real, facilitando la detección de amenazas.
+    [Detección de Amenazas]:
+        Utiliza inteligencia de amenazas y análisis de comportamiento para identificar actividades sospechosas y posibles intrusiones.
+    [Integración de Open Threat Exchange (OTX)]:
+        AlienVault se beneficia de OTX, una comunidad de intercambio de inteligencia de amenazas que proporciona información actualizada sobre amenazas emergentes.
+    [Facilidad de Implementación]: 
+        La plataforma está diseñada para ser fácil de implementar y usar, lo que permite a las organizaciones comenzar a protegerse rápidamente.
+    [Informes y Cumplimiento]: 
+        Genera informes detallados que ayudan a las organizaciones a cumplir con regulaciones y estándares de seguridad.
+    [Automatización]: 
+        Ofrece capacidades de automatización para responder a incidentes de seguridad, lo que puede reducir el tiempo de respuesta ante amenazas.
