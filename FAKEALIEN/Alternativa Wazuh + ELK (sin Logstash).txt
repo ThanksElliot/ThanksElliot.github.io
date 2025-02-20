@@ -70,10 +70,8 @@ sudo dpkg -i filebeat-8.x.x-amd64.deb
 
 2️⃣ Configurar Filebeat para leer los logs del sistema
 Edita el archivo /etc/filebeat/filebeat.yml y habilita los logs de Syslog y Wazuh:
------------------------------------------------------
 yaml
-Copiar
-Editar
+-----------------------------------------------------
 filebeat.inputs:
   - type: log
     enabled: true
