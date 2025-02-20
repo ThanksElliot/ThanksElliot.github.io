@@ -18,21 +18,21 @@ Configura Filebeat para leer los logs de Syslog, Wazuh y otros servicios.
 
 En /etc/filebeat/filebeat.yml, configura los inputs y la salida directa a Elasticsearch:
 -----------------------------------------------------
-yaml
-Copiar
-Editar
-filebeat.inputs:
-  - type: log
-    enabled: true
-    paths:
-      - /var/log/syslog
-      - /var/log/auth.log
-      - /var/ossec/logs/alerts/alerts.json
-
-output.elasticsearch:
-  hosts: ["http://tu-servidor-elasticsearch:9200"]
-  username: "elastic"
-  password: "tu-contraseña"
+  yaml
+  Copiar
+  Editar
+  filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /var/log/syslog
+        - /var/log/auth.log
+        - /var/ossec/logs/alerts/alerts.json
+  
+  output.elasticsearch:
+    hosts: ["http://tu-servidor-elasticsearch:9200"]
+    username: "elastic"
+    password: "tu-contraseña"
 -----------------------------------------------------
 
 Activa el módulo de Wazuh en Filebeat:
