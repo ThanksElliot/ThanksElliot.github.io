@@ -97,3 +97,34 @@ Herramientas y tecnologías de AlienVault:
         AlienVault puede integrarse con diversas soluciones de seguridad y herramientas de terceros para mejorar la visibilidad y la respuesta a incidentes.
     [Gestión de Incidentes]:
         Funcionalidades para gestionar y responder a incidentes de seguridad de manera efectiva.
+
+
+########################################################################################################################################
+##################[ F O R M A 4 - R E C U R S O S · S I E M ]###########################################################################
+
+    [AlienVault OSSIM]: 
+        Es una de las opciones más completas, ya que combina SIEM con IDS (Intrusion Detection System), monitoreo de red y escaneo de vulnerabilidades. 
+        Sin embargo, su versión gratuita (OSSIM) es más limitada en comparación con la versión paga de AT&T Cybersecurity.
+    [Wazuh]: 
+        Basado en OSSEC, es un excelente SIEM y HIDS (Host Intrusion Detection System), con integración nativa con Elastic Stack (ELK). 
+        Tiene gran soporte de comunidad, buenas capacidades de correlación y es altamente escalable.
+    [Sagan]: 
+        Es más un motor de correlación de logs que un SIEM completo. Funciona bien en combinación con Snort o Suricata, pero no es la mejor opción como SIEM principal.
+        Prelude OSS: Ofrece detección de intrusiones con capacidades SIEM, pero su versión gratuita es muy limitada en comparación con otras soluciones.
+    [OSSEC]: 
+        Es un HIDS muy potente, pero no tiene funcionalidades SIEM completas sin integración con otras herramientas como ELK o Wazuh.
+    [Snort]: 
+        Es un IDS basado en red, pero no es un SIEM por sí solo. Puede integrarse con otras soluciones, pero requiere más trabajo para formar una solución completa.
+    [Elastic Stack (ELK)]: 
+        Muy potente para el análisis y visualización de logs, pero por sí solo no es un SIEM. Sin embargo, combinado con Wazuh, se convierte en una solución muy completa.
+
+[Mejor Opción]: 
+    Wazuh + Elastic Stack (ELK)
+        Razones por las que esta combinación es la mejor:
+        ✅ Gratis y Open Source.
+        ✅ Correlación de eventos y monitoreo en tiempo real.
+        ✅ Integración con múltiples fuentes de logs y detección de intrusos.
+        ✅ Escalabilidad y capacidad de manejar grandes volúmenes de datos.
+        ✅ Análisis avanzado con dashboards en Kibana (parte de ELK).
+        ✅ Buena documentación y soporte de la comunidad.
+
