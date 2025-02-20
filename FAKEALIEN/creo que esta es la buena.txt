@@ -1,0 +1,30 @@
+Mejores opciones gratuitas para tu caso
+Security Onion (Recomendada)
+
+Incluye Zeek (antes Bro), Suricata, Elastic Stack y Wazuh.
+Permite analizar tráfico en tiempo real mediante un puerto espejo (SPAN) en el switch.
+Detecta amenazas en la red y puede integrarse con escáneres de vulnerabilidades pasivos.
+100% gratuito y open source.
+Zeek (Bro) + Elastic Stack
+
+Zeek captura el tráfico y lo analiza en busca de anomalías y amenazas.
+Elastic Stack permite visualizar y correlacionar eventos.
+Más técnico, pero muy potente si se configura bien.
+Snort + OpenVAS
+
+Snort es un IDS/IPS que analiza tráfico en tiempo real.
+OpenVAS (de Greenbone) es un escáner de vulnerabilidades gratuito.
+Puedes instalar ambos en un servidor y hacer que Snort monitoree el tráfico en espejo.
+Suricata + Wazuh
+
+Suricata detecta amenazas analizando paquetes en el tráfico de red.
+Wazuh es un SIEM gratuito basado en OSSEC, ideal para correlacionar eventos de seguridad.
+Requisitos para implementarlo
+Un servidor donde instalar la solución (puede ser físico o virtual).
+Configurar el switch con un puerto espejo (SPAN) para capturar el tráfico.
+Definir alertas y reglas para detectar vulnerabilidades.
+¿Cuál elegir?
+Si quieres una solución lista para usar → Security Onion.
+Si prefieres máxima personalización → Zeek + Elastic Stack.
+Si buscas una solución liviana → Snort + OpenVAS.
+Todas son 100% gratuitas y open source. ¿Te interesa ayuda con la instalación o configuración?
