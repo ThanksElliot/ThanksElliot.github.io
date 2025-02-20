@@ -1,0 +1,91 @@
+Sí, puedes enviar los logs de forma nativa sin Filebeat, usando Syslog nativo (rsyslog o syslog-ng) para enviar los logs directamente a Elasticsearch.
+
+🚀 Alternativa SIN Filebeat: Syslog → Elasticsearch
+En este método, cada máquina Linux usa rsyslog o syslog-ng para enviar logs directamente a Elasticsearch.
+
+📌 ¿Cómo funciona?
+1️⃣ Cada servidor Linux usa rsyslog/syslog-ng para manejar sus propios logs.
+2️⃣ En lugar de almacenar los logs localmente, los envía directamente a Elasticsearch.
+3️⃣ Wazuh y Kibana reciben los logs sin necesidad de Filebeat.
+
+💡 Opción 1: Usando rsyslog (Recomendado para la mayoría de los sistemas)
+1️⃣ Verifica que rsyslog está instalado
+En Debian/Ubuntu:
+bash
+-----------------------------------------------------
+sudo apt update && sudo apt install rsyslog -y
+-----------------------------------------------------
+
+2️⃣ Configura rsyslog para enviar logs a Elasticsearch
+Edita el archivo de configuración /etc/rsyslog.conf y agrega:
+bash
+-----------------------------------------------------
+module(load="omhttp")
+action(type="omhttp"
+       server="http://tu-servidor-elasticsearch:9200"
+       serverport="9200"
+       restpath="/_bulk"
+       template="json-template")
+Luego, en /etc/rsyslog.d/50-default.conf, asegúrate de que los logs que deseas enviar están habilitados:
+-----------------------------------------------------
+
+bash
+-----------------------------------------------------
+*.* action(type="omhttp"
+           server="http://tu-servidor-elasticsearch:9200"
+           serverport="9200"
+           template="json-template")
+Guarda y reinicia rsyslog:
+-----------------------------------------------------
+
+bash
+-----------------------------------------------------
+sudo systemctl restart rsyslog
+💡 Opción 2: Usando syslog-ng
+Si prefieres syslog-ng, puedes hacer algo similar.
+-----------------------------------------------------
+
+1️⃣ Instala syslog-ng
+En Debian/Ubuntu:
+bash
+-----------------------------------------------------
+sudo apt install syslog-ng -y
+-----------------------------------------------------
+
+2️⃣ Configura syslog-ng para enviar logs a Elasticsearch
+Edita /etc/syslog-ng/syslog-ng.conf y agrega:
+
+bash
+-----------------------------------------------------
+destination d_elasticsearch {
+  http(
+    url("http://tu-servidor-elasticsearch:9200/_bulk")
+    method("POST")
+    format("json")
+  );
+};
+
+log {
+  source(src);
+  destination(d_elasticsearch);
+};
+Guarda y reinicia syslog-ng:
+-----------------------------------------------------
+
+bash
+-----------------------------------------------------
+sudo systemctl restart syslog-ng
+-----------------------------------------------------
+
+🚀 Ventajas de este método (sin Filebeat)
+✅ No necesitas instalar agentes adicionales en cada máquina.
+✅ Aprovechas syslog nativo (rsyslog o syslog-ng) para enviar logs a Elasticsearch.
+✅ Menos consumo de recursos en cada servidor.
+
+❗ Posibles Desventajas
+❌ Menos flexibilidad y personalización que Filebeat.
+❌ Syslog no tiene compresión ni buffering, lo que puede afectar el rendimiento en redes con mucho tráfico.
+❌ No puedes usar módulos de Wazuh directamente sin hacer parsing en Elasticsearch.
+
+📌 Conclusión
+Si quieres evitar Filebeat, la mejor opción es usar rsyslog o syslog-ng para enviar logs directamente a Elasticsearch. Este método reduce el overhead en cada máquina y aprovecha herramientas nativas de Linux. 🚀
