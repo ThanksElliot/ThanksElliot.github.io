@@ -19,8 +19,8 @@ asterisk -rvvvv
 	cd /var/www/html/ 
 	# para agregar la lista de telefonillos internos a internos.csv 
 		./generar-csv-internos.sh > internos.csv
-    	# para agregar la lista de telefonillos internos a externos.csv
-		./generar-csv-externos.sh > externos.csv
+    	# para agregar la lista de telefonillos internos a moviles.csv
+		./generar-csv-moviles.sh > moviles.csv
     	# para actualizar las listas en los teléfonos
 		./actualiza-agendas.sh
 
