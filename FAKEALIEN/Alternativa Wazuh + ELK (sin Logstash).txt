@@ -54,3 +54,58 @@ Usa Kibana para visualizar los logs en el dashboard de Wazuh.
 
 📌 Conclusión
 Si no quieres usar Logstash, la mejor alternativa es usar Filebeat en cada máquina para enviar los logs de Syslog directamente a Elasticsearch. Esto mantiene la arquitectura distribuida y permite que cada servidor gestione sus propios logs sin depender de un servidor central de logs. 🚀
+
+
+############################################################################################################
+
+
+📌 ¿Qué debes hacer en cada servidor Linux?
+1️⃣ Instalar Filebeat
+En Debian/Ubuntu:
+bash
+-----------------------------------------------------
+curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.x.x-amd64.deb
+sudo dpkg -i filebeat-8.x.x-amd64.deb
+-----------------------------------------------------
+
+2️⃣ Configurar Filebeat para leer los logs del sistema
+Edita el archivo /etc/filebeat/filebeat.yml y habilita los logs de Syslog y Wazuh:
+-----------------------------------------------------
+yaml
+Copiar
+Editar
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/syslog
+      - /var/log/auth.log
+      - /var/ossec/logs/alerts/alerts.json  # Logs de Wazuh
+
+output.elasticsearch:
+  hosts: ["http://tu-servidor-elasticsearch:9200"]
+  username: "elastic"
+  password: "tu-contraseña"
+-----------------------------------------------------
+
+3️⃣ Habilitar y ejecutar Filebeat
+bash
+-----------------------------------------------------
+sudo systemctl enable filebeat
+sudo systemctl start filebeat
+-----------------------------------------------------
+
+4️⃣ (Opcional) Activar el módulo de Wazuh en Filebeat
+bash
+-----------------------------------------------------
+sudo filebeat modules enable wazuh
+sudo filebeat setup
+sudo systemctl restart filebeat
+-----------------------------------------------------
+🚀 Beneficios de este método
+✅ Cada máquina gestiona sus propios logs con Syslog.
+✅ Filebeat es liviano y eficiente, a diferencia de Logstash.
+✅ No dependes de un servidor central de logs, los logs se envían directamente a Elasticsearch.
+✅ Escalable, puedes agregar más servidores sin afectar el rendimiento de un nodo central.
+
+💡 Conclusión: Sí, debes instalar Filebeat en cada servidor Linux, pero esto hace que el monitoreo sea más distribuido y eficiente. 🚀
