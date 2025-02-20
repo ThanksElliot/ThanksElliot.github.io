@@ -1,0 +1,41 @@
+🔹 Security Onion
+✅ Más adecuado para un SIEM:
+
+Security Onion 
+es una plataforma de monitoreo y detección de amenazas que incluye herramientas como Suricata, Zeek, Elastic Stack y TheHive. Se usa para detección de intrusos (IDS/IPS), análisis de logs y correlación de eventos.
+  💡 Ventajas:
+  Integración nativa con SIEMs.
+  Monitoreo en tiempo real de tráfico de red.
+  Incluye herramientas como Zeek y Suricata para detección de amenazas.
+  Basado en ELK (ElasticSearch, Logstash, Kibana), facilitando la visualización de datos.
+  
+  ❌ Desventajas:
+  Requiere más configuración inicial.
+  Puede ser más complejo para principiantes.
+  Mayor consumo de recursos en comparación con OpenVAS.
+  🔹 OpenVAS
+  ✅ Más sencillo si solo quieres escanear vulnerabilidades
+
+  
+OpenVAS 
+es un escáner de vulnerabilidades que detecta fallos en servidores, redes y dispositivos. No es un SIEM, pero complementa la seguridad al identificar puntos débiles.
+  💡 Ventajas:
+  Más fácil de instalar y usar.
+  Enfocado en detectar vulnerabilidades, ideal para auditorías puntuales.
+  Ofrece informes detallados sobre fallos de seguridad.
+  
+  ❌ Desventajas:
+  No es un SIEM, no tiene correlación de eventos ni monitoreo en tiempo real.
+  No analiza tráfico de red ni detecta intrusos como Security Onion.
+📌 ¿Cuál es mejor para un SIEM de red?
+Si buscas un SIEM con monitoreo en tiempo real y análisis de eventos: ✅ Security Onion.
+Si solo necesitas escanear vulnerabilidades de la red y sistemas: ✅ OpenVAS.
+Mejor combinación: Usar Security Onion como SIEM y OpenVAS para escaneos periódicos de vulnerabilidades.
+💡 ¿Necesitas ayuda para instalar o configurar alguno de ellos? 🚀
+
+
+
+
+
+
+
