@@ -118,11 +118,11 @@ Herramientas y tecnologías de AlienVault:
     [Elastic Stack (ELK)]: 
         Muy potente para el análisis y visualización de logs, pero por sí solo no es un SIEM. Sin embargo, combinado con Wazuh, se convierte en una solución muy completa.
 
-[Mejor Opción]: 
-    Wazuh + Elastic Stack (ELK)
+    [Mejor Opción]: 
+        Wazuh + Elastic Stack (ELK)
         Razones por las que esta combinación es la mejor:
         ✅ Gratis y Open Source.
-        ✅ Correlación de eventos y monitoreo en tiempo real.
+        ✅ Correlación de eventos y monitoreo en tiempo real. 
         ✅ Integración con múltiples fuentes de logs y detección de intrusos.
         ✅ Escalabilidad y capacidad de manejar grandes volúmenes de datos.
         ✅ Análisis avanzado con dashboards en Kibana (parte de ELK).
