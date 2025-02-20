@@ -1,0 +1,53 @@
+🚀 Alternativa sin Logstash: Wazuh + ELK con Filebeat y Syslog
+En este enfoque, cada máquina Linux maneja sus logs de manera local y los envía directamente a Elasticsearch usando Filebeat, sin necesidad de Logstash.
+
+📌 ¿Cómo funciona?
+Los logs del sistema se generan nativamente en cada máquina Linux con Syslog (journalctl, rsyslog o syslog-ng).
+Filebeat (en cada máquina) lee los logs y los envía directamente a Elasticsearch, sin pasar por Logstash.
+El plugin de Wazuh en Kibana permite visualizar los eventos de seguridad.
+🔥 Pasos para Implementarlo
+1️⃣ Configura Syslog en cada máquina para que los logs se guarden localmente.
+
+Si usas rsyslog, revisa que esté habilitado en /etc/rsyslog.conf.
+Si usas syslog-ng, configúralo en /etc/syslog-ng/syslog-ng.conf.
+2️⃣ Instala Filebeat en cada máquina (en lugar de Logstash).
+
+Descarga e instala Filebeat en cada host.
+Configura Filebeat para leer los logs de Syslog, Wazuh y otros servicios.
+3️⃣ Configura Filebeat para enviar logs a Elasticsearch.
+
+En /etc/filebeat/filebeat.yml, configura los inputs y la salida directa a Elasticsearch:
+yaml
+Copiar
+Editar
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/syslog
+      - /var/log/auth.log
+      - /var/ossec/logs/alerts/alerts.json
+
+output.elasticsearch:
+  hosts: ["http://tu-servidor-elasticsearch:9200"]
+  username: "elastic"
+  password: "tu-contraseña"
+Activa el módulo de Wazuh en Filebeat:
+bash
+Copiar
+Editar
+sudo filebeat modules enable wazuh
+sudo filebeat setup
+sudo systemctl restart filebeat
+4️⃣ Configura Elasticsearch y Kibana para recibir los logs.
+
+Asegúrate de que Elasticsearch acepta conexiones desde Filebeat.
+Usa Kibana para visualizar los logs en el dashboard de Wazuh.
+💡 Ventajas de esta Configuración
+✅ Evitas Logstash, reduciendo la carga en un servidor central.
+✅ Cada máquina Linux maneja sus propios logs nativamente con Syslog.
+✅ Filebeat es más ligero y eficiente que Logstash para enviar logs a Elasticsearch.
+✅ Escalable, ya que cada máquina envía sus logs directamente sin necesidad de un intermediario.
+
+📌 Conclusión
+Si no quieres usar Logstash, la mejor alternativa es usar Filebeat en cada máquina para enviar los logs de Syslog directamente a Elasticsearch. Esto mantiene la arquitectura distribuida y permite que cada servidor gestione sus propios logs sin depender de un servidor central de logs. 🚀
