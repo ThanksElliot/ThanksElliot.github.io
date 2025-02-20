@@ -218,7 +218,7 @@ goto menu
 :logactivity
 
 :: Definir el archivo de registro
-set logFile="%USERPROFILE%\Desktop\Registro.txt"
+set logFile="%USERPROFILE%\Desktop\Logs_oDIN-3.txt"
 
 :: Punto para registrar la hora de inicio de sesión
 :Log-Activity
