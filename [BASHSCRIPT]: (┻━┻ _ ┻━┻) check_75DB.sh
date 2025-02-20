@@ -7,18 +7,19 @@
 DB_USER="tu_usuario"
 DB_PASSWORD="tu_contraseña"
 DB_HOST="localhost"
+DB_QUERY="SELECT User FROM mysql.user;"
 
 # Configuración del correo electrónico
-SMTP_TO=("destinatario1@ejemplo.com" "destinatario2@ejemplo.com" "destinatario3@ejemplo.com")  # Agrega más destinatarios aquí
-SMTP_FROM="tu_email@ejemplo.com"
-SUBJECT="Alerta: Nuevos usuarios en la base de datos"
+SMTP_TO=("destinatario1@ejemplo.com" "destinatario2@ejemplo.com" "destinatario3@ejemplo.com")            # destinatarios
+SMTP_FROM="tu_email@ejemplo.com"                                                                         # emisor
+SUBJECT="Alerta: Nuevos usuarios en la base de datos"                                                    # mensaje
 
 # Archivos para almacenar la lista de usuarios
-PREVIOUS_USERS_FILE="previous_users.txt"
-NOTIFIED_USERS_FILE="notified_users.txt"
+PREVIOUS_USERS_FILE="previous_users.txt"                                                                 # archivo con usuarios: última ejecución   
+NOTIFIED_USERS_FILE="notified_users.txt"                                                                 # archivo con usuarios: en ejecución 
 
 # Obtener la lista de usuarios actuales
-CURRENT_USERS=$(mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "SELECT User FROM mysql.user;" | tail -n +2 | sort)
+CURRENT_USERS=$(mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$DB_QUERY" | tail -n +2 | sort)
 
 # Leer usuarios anteriores del archivo
 if [ -f "$PREVIOUS_USERS_FILE" ]; then
