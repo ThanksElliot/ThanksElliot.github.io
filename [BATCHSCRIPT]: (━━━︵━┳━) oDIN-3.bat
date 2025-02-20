@@ -51,32 +51,34 @@ echo ===========================================================================
 echo    Mantenimiento de Seguridad
 echo ==================================================================================
 echo 1. Analizar equipo con Windows Defender en busca de virus
-echo 2. Ejecutar SFC (Buscar y restaura archivos del sistema automagicamente)
-echo 3. Ejecutar DISM (Herramienta de administracion y mantenimiento de imagenes de implementacion)
-echo 4. Buscar procesos sospechosos
-echo 5. Obtener clave de producto de Windows
-echo 6. Ver conexiones de red activas
-echo 7. Verificar uso del disco
-echo 8. Buscar archivos ocultos
-echo 9. Limpiar archivos temporales
-echo 10. Invocar a Odin
+echo 2. Ejecutar MRT o Malicious Software Removal Tool (Herramienta de Eliminación de Software Malicioso)
+echo 3. Ejecutar SFC (Buscar y restaura archivos del sistema automagicamente)
+echo 4. Ejecutar DISM (Herramienta de administracion y mantenimiento de imagenes de implementacion)
+echo 5. Buscar procesos sospechosos
+echo 6. Obtener clave de producto de Windows
+echo 7. Ver conexiones de red activas
+echo 8. Verificar uso del disco
+echo 9. Buscar archivos ocultos
+echo 10. Limpiar archivos temporales
 echo 11. Escanear red / Esnifar red
-echo 12. Salir
+echo 12. Invocar a Odin
+echo 13. Salir
 echo ==========================
 set /p option=Selecciona una opcion (1-8): 
 
 if "%option%"=="1" goto scan
-if "%option%"=="2" goto sfc
-if "%option%"=="3" goto dism
-if "%option%"=="4" goto procesos
-if "%option%"=="5" goto getkey
-if "%option%"=="6" goto conexiones
-if "%option%"=="7" goto diskusage
-if "%option%"=="8" goto searchhidden
-if "%option%"=="9" goto cleantemp
-if "%option%"=="10" goto logactivity
+if "%option%"=="2" goto mrtactivity
+if "%option%"=="3" goto sfc
+if "%option%"=="4" goto dism
+if "%option%"=="5" goto procesos
+if "%option%"=="6" goto getkey
+if "%option%"=="7" goto conexiones
+if "%option%"=="8" goto diskusage
+if "%option%"=="9" goto searchhidden
+if "%option%"=="10" goto cleantemp
 if "%option%"=="11" goto networkinfo
-if "%option%"=="12" exit
+if "%option%"=="12" goto logactivity
+if "%option%"=="13" exit
 goto menu
 
 :scan
@@ -106,6 +108,33 @@ if exist resultados.txt (
 ) else (
     echo No se encontraron amenazas.
 )
+
+pause
+goto menu
+
+:mrtactivity
+
+echo Creo un archivo temporal mrt_log.txt
+:: Crear un archivo de registro para MRT
+echo Iniciando el análisis completo con MRT...
+start mrt.exe /F:Y /Q
+
+:: Esperar un momento para asegurarse de que MRT haya comenzado
+timeout /t 5 > nul
+
+:: Comprobar si MRT está en ejecución y mostrar un mensaje de progreso
+:checkMRT
+tasklist | find "mrt.exe" > nul
+if %errorlevel%==0 (
+    echo El análisis está en curso... Por favor, espere.
+    timeout /t 30 > nul
+    goto checkMRT
+)
+
+:: Mensaje final
+echo Análisis completado.
+
+endlocal
 
 pause
 goto menu
@@ -215,32 +244,6 @@ echo Archivos temporales eliminados.
 pause
 goto menu
 
-:logactivity
-
-:: Definir el archivo de registro
-set logFile="%USERPROFILE%\Desktop\Logs_oDIN-3.txt"
-
-:: Punto para registrar la hora de inicio de sesión
-:Log-Activity
-setlocal
-set timestamp=%date% %time%
-echo %timestamp% - Un Odin travieso a pasado por aquí... >> %logFile%
-endlocal
-goto :eof
-
-:: Llamar a la función para registrar la hora de inicio de sesión
-call :Log-Activity
-:: Verificar si el archivo de registro existe, si no, crearlo
-if not exist %logFile% (
-    echo Creando archivo de registro...
-    echo. > %logFile%  :: Esto crea el archivo vacío
-)
-:: Llamar a la función para registrar la hora de inicio de sesión
-call :Log-Activity
-echo Hora de inicio de sesión registrada.
-pause
-goto menu
-
 :networkinfo
 setlocal
 
@@ -295,5 +298,31 @@ ipconfig | findstr /i "Puerta de enlace"
 echo ==================================================================================
 
 echo Información de red enviada.
+pause
+goto menu
+
+:logactivity
+
+:: Definir el archivo de registro
+set logFile="%USERPROFILE%\Desktop\Logs_oDIN-3.txt"
+
+:: Punto para registrar la hora de inicio de sesión
+:Log-Activity
+setlocal
+set timestamp=%date% %time%
+echo %timestamp% - Un Odin travieso a pasado por aquí... >> %logFile%
+endlocal
+goto :eof
+
+:: Llamar a la función para registrar la hora de inicio de sesión
+call :Log-Activity
+:: Verificar si el archivo de registro existe, si no, crearlo
+if not exist %logFile% (
+    echo Creando archivo de registro...
+    echo. > %logFile%  :: Esto crea el archivo vacío
+)
+:: Llamar a la función para registrar la hora de inicio de sesión
+call :Log-Activity
+echo Hora de inicio de sesión registrada.
 pause
 goto menu
