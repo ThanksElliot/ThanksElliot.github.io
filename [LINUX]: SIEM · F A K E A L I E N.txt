@@ -79,3 +79,21 @@ ALIENVAULT (este es de pago, quiero imitarlo) :
         Genera informes detallados que ayudan a las organizaciones a cumplir con regulaciones y estándares de seguridad.
     [Automatización]: 
         Ofrece capacidades de automatización para responder a incidentes de seguridad, lo que puede reducir el tiempo de respuesta ante amenazas.
+
+Herramientas y tecnologías de AlienVault:
+    [SIEM (Security Information and Event Management)]: 
+        Recopila y analiza datos de eventos de seguridad en tiempo real para detectar amenazas.
+    [Detección de Intrusiones (IDS/IPS)]: 
+        Utiliza sistemas de detección y prevención de intrusiones para identificar y bloquear actividades maliciosas.
+    [Escaneo de Vulnerabilidades]: 
+        Integración con herramientas como OpenVAS para identificar vulnerabilidades en la infraestructura.
+    [Análisis de Comportamiento]: 
+        Monitorea el comportamiento de los usuarios y entidades para detectar actividades anómalas.
+    [Inteligencia de Amenazas]: 
+        Proporciona información sobre amenazas en tiempo real, incluyendo indicadores de compromiso (IoCs) y análisis de amenazas.
+    [Automatización y Orquestación]: 
+        Herramientas para automatizar respuestas a incidentes y gestionar flujos de trabajo de seguridad.
+    [Integraciones con otras herramientas]: 
+        AlienVault puede integrarse con diversas soluciones de seguridad y herramientas de terceros para mejorar la visibilidad y la respuesta a incidentes.
+    [Gestión de Incidentes]:
+        Funcionalidades para gestionar y responder a incidentes de seguridad de manera efectiva.
