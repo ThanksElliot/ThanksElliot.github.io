@@ -5,7 +5,7 @@
 # Busco en mi servidor de archivos un backup que tengo de la configuración manual de abajo
 
 
-
+## en el caso de que tenga que 
 
 
 ########################################################################################################################################
