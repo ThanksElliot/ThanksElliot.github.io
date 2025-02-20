@@ -1,0 +1,34 @@
+########################################################################################################################################
+##################[ R E C U R S O S · S I E M ]#########################################################################################
+WAZUH :   
+    [Características Principales]:
+      Detección de Intrusos: Wazuh es un sistema de detección de intrusos basado en host (HIDS) que monitorea la actividad en tiempo real y puede detectar comportamientos sospechosos.
+      Análisis de Vulnerabilidades: Integra herramientas para el análisis de vulnerabilidades, permitiendo identificar debilidades en la infraestructura de TI.
+      Gestión de Logs: Recopila y analiza logs de diferentes fuentes, lo que permite una visibilidad completa de la actividad en la red.
+      Alertas en Tiempo Real: Configura alertas personalizables para notificar a los administradores sobre eventos críticos y posibles incidentes de seguridad.
+      Integración con ELK Stack: Se puede integrar fácilmente con Elasticsearch, Logstash y Kibana, lo que permite una visualización y análisis de datos más potentes.
+      Cumplimiento Normativo: Ayuda a cumplir con normativas de seguridad y privacidad, proporcionando informes y auditorías.
+    [Ventajas]:
+      Código Abierto: Wazuh es gratuito y de código abierto, lo que permite personalización y adaptación a las necesidades específicas de la empresa.
+      Comunidad Activa: Tiene una comunidad activa que contribuye al desarrollo y mejora continua de la herramienta.
+      Documentación Completa: Ofrece una buena documentación y recursos para facilitar la implementación y el uso.
+
+ELK : 
+    [1. Elasticsearch]:
+      Función: Es un motor de búsqueda y análisis basado en documentos que permite almacenar, buscar y analizar grandes volúmenes de datos de manera rápida y en tiempo real.
+      Uso: Se utiliza para indexar datos, lo que facilita la búsqueda y recuperación de información. Es altamente escalable y puede manejar grandes cantidades de datos distribuidos.
+    [2. Logstash]:
+      Función: Es una herramienta de procesamiento de datos que permite la recolección, transformación y envío de datos a Elasticsearch.
+      Uso: Logstash puede recibir datos de diversas fuentes (archivos de logs, bases de datos, sistemas de monitoreo, etc.), procesarlos (filtrarlos, transformarlos, etc.) y luego enviarlos a Elasticsearch para su almacenamiento y análisis.
+    [3. Kibana]:
+      Función: Es una interfaz de usuario que permite visualizar y explorar los datos almacenados en Elasticsearch.
+      Uso: Kibana proporciona herramientas para crear dashboards, gráficos y visualizaciones interactivas, lo que facilita el análisis de datos y la identificación de patrones o anomalías.
+      ¿Para qué sirve ELK en conjunto?
+      Centralización de Logs: ELK se utiliza comúnmente para centralizar y gestionar logs de diferentes sistemas y aplicaciones, lo que permite a las organizaciones tener una visión unificada de su infraestructura.
+      Análisis de Datos: Permite realizar análisis en tiempo real sobre grandes volúmenes de datos, lo que es útil para la detección de problemas, la monitorización de sistemas y la seguridad.
+      Visualización: Facilita la creación de visualizaciones y dashboards que ayudan a los equipos a entender mejor los datos y a tomar decisiones informadas.
+      Detección de Anomalías: En el contexto de la seguridad, ELK se puede utilizar para detectar patrones inusuales en los logs que podrían indicar un ataque o una brecha de seguridad.
+
+
+########################################################################################################################################
+##################[ I N S T A L A C I O N · S I E M ]###################################################################################
