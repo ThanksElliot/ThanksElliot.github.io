@@ -90,10 +90,13 @@
 	System > Account :
 		> Borro el usuario Guest
 		> Cambio la password de admin
+
 	# el password del tlf es por defecto : 123 
 		> Puedo cambiarla desde el tlf, (cambio la password por la que tengo que utilizar)
+
 	# desactivo el SIP Pnp
 		> System > Auto Provision > Enable SIP PnP: [ ]
+
 	# configuro la red
 		> Network > Basic > Network Adapter :
 		---[ NETWORK ]--------------------------------------------------------------------
@@ -111,9 +114,10 @@
 			
 		Advanced
 			DHCP VLAN Settings: Disabled
-	
+
 	# antes de seguir al siguiente apartado hay que agregar un usuario como explico en la siguiente documentación de Asterisk: 
 		> [LINUX ASTERISK]: Agregar usuario telefonico.txt
+
 	# configuro la termina y el servidor del dispositivo
 		> Line > SIP :
 		---[ LINE ]-----------------------------------------------------------------------
@@ -133,34 +137,38 @@
 			Location: Spain(Madrid)
 			DST Set Type: Automatic
 
-		TONE
-		Tone Settings
-			Select Your Tone: Spain
-				/* Datos por defecto para españa */
-				Dial Tone: 425/0
-				Ring Back Tone:	425/1500,0/3000
-				Busy Tone: 425/200,0/200
-				Congestion Tone: 425/200,0/200,425/200,0/200,425/200,0/600
-				Call waiting Tone: 425/175,0/175,425/175,0/3500
-				Holding Tone: 
-				Error Tone:	
-				Stutter Tone: 
-				Information Tone: 950/330,1400/330,1800/330,0/1000
-				Dial Recall Tone: 
-				Message Tone: 
-				Howler Tone: 
-				Number Unobtainable Tone: 425/200,0/200,425/200,0/600
-				Warning Tone: 1400/400,0/5000
-				Record Tone:
-				Auto Answer Tone:	
+		> Phone Settings > Features > Tone Settings :
+		---[ PHONE SETTINGS ]------------------------------------------------------------
+		Select Your Tone: Spain
+			/* Datos por defecto para españa */
+			Dial Tone: 425/0
+			Ring Back Tone:	425/1500,0/3000
+			Busy Tone: 425/200,0/200
+			Congestion Tone: 425/200,0/200,425/200,0/200,425/200,0/600
+			Call waiting Tone: 425/175,0/175,425/175,0/3500
+			Holding Tone: 
+			Error Tone:	
+			Stutter Tone: 
+			Information Tone: 950/330,1400/330,1800/330,0/1000
+			Dial Recall Tone: 
+			Message Tone: 
+			Howler Tone: 
+			Number Unobtainable Tone: 425/200,0/200,425/200,0/600
+			Warning Tone: 1400/400,0/5000
+			Record Tone:
+			Auto Answer Tone:
+
 	# Configuración de la agenda
+		> PhoneBook > Cloud Phonebook :
 		---[ PHONEBOOK ]------------------------------------------------------------------
 		Cloud phonebook
 			Name: <NOMBRE_EMPRESA>
 			URL: <URL_SERVIDOR_DEL_ARCHIVO_XML_DE_AGENDA_DE_CONTACTOS>
 			Calling Line: Auto
 			Search Line: Auto
-	# En Function Keys añadimos todas las paginas posibles. 		
+
+	# En Function Keys añadimos todas las paginas posibles. 	
+		> Function key > Side key :
 		---[ FUNCTION KEY ]---------------------------------------------------------------
 		Teclas BLF que se puedan usar como extension rapida:
 			Type: Key Event
