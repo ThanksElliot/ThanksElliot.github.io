@@ -2,11 +2,42 @@
 #########################################[ CONFIGURACIÓN RÁPIDA · BACKUP ]##############################################################
 ########################################################################################################################################
 
-# Busco en mi servidor de archivos un backup que tengo de la configuración manual de abajo
+#######################################################################################################
+	ADMINISTRACIÓN del dispositivo
+#######################################################################################################
 
+# conecto el cable de ethernet
+	[conector]: esquema de ordenadores en árbol
 
-## en el caso de que tenga que tenga resetear algún dispositivo
-System > Configurations > Reset Phone > Reset
+# Busco desde el tlf la IP asignada por DHCP y entro vía WEB
+	[tlf]: Menú > Estado > ETH IP: xx.xx.xx.xx
+	# usuarios por defecto:
+	admin:admin
+	guest:guest
+
+# Busco el nuevo Firmware y lo descargo la última versión
+	# el archivo es un tipo .z hay que subirlo tal cual
+	https://fanvil.com/service/doc/index.html
+
+# Reseteo dispositivo
+	System > Reboot Phone
+
+# Me vuelvo a loguear con las credenciales configuradas en el backup
+	https://<IP_DEL_DISPOSITIVO>
+
+#######################################################################################################
+	ARCHIVOS backup
+#######################################################################################################
+
+# Busco en mi servidor de archivos los backup (es la misma configuración que la de abajo [ CONFIGURACIÓN LENTA · MANUAL ])
+# Actualizo los backup (sudo los archivos con las siguientes extensiones)
+	System > Upgrade
+		+ Background.bmp
+		+ Boot.png
+		+ dss-keys.tar.gz
+		+ ring-tones.tar.gz
+		+ default.wav
+		+ Configuración x4u vx.xml
 
 
 ########################################################################################################################################
@@ -29,7 +60,11 @@ System > Configurations > Reset Phone > Reset
 # Busco el nuevo Firmware y lo descargo la última versión
 	# el archivo es un tipo .z hay que subirlo tal cual
 	https://fanvil.com/service/doc/index.html
-	
+
+#######################################################################################################
+	CONFIGURACIÓN web
+#######################################################################################################
+
 # Una vez en la WEB:
 ********************
 	# actualizo el Firmware
@@ -66,27 +101,55 @@ System > Configurations > Reset Phone > Reset
 	# configuro la termina y el servidor del dispositivo
 		> Line > SIP :
 		---[ LINE ]-----------------------------------------------------------------------
-			SIP
-				Line: SIP-1
-				Line Status: Active
-				
-				Username: <REGISTRO_ASTERISK>
-				Authentication User: <REGISTRO_ASTERISK>
-				Authentication Password: <PASSWORD_ASTERISK>
-				
-				SIP Server 1
-					Server Address:	xx.xx.xx.xx (IP_DE_SERVIDOR)
-					...
+		Network Time Server Settings
+			Time Synchronized via SNTP: Enable
+			Primary Time Server: <IP_SERVIDOR_SIP>
+			Secondary Time Server: 192.168.0.1
+			Time zone: UTC+1
+			Resync Period: 3600
+		
+		Time/Date Format
+			12-hour clock: Disabled		
+			Time/Date Format: DD MM YYYY (9-11-2022 MIE)
+			Date Seperator: -
 			
-			DIAL PLAN
-				Send after 3 seconds
+		Daylight Saving Time Settings
+			Location: Spain(Madrid)
+			DST Set Type: Automatic
+
+		TONE
+		Tone Settings
+			Select Your Tone: Spain
+				/* Datos por defecto para españa */
+				Dial Tone: 425/0
+				Ring Back Tone:	425/1500,0/3000
+				Busy Tone: 425/200,0/200
+				Congestion Tone: 425/200,0/200,425/200,0/200,425/200,0/600
+				Call waiting Tone: 425/175,0/175,425/175,0/3500
+				Holding Tone: 
+				Error Tone:	
+				Stutter Tone: 
+				Information Tone: 950/330,1400/330,1800/330,0/1000
+				Dial Recall Tone: 
+				Message Tone: 
+				Howler Tone: 
+				Number Unobtainable Tone: 425/200,0/200,425/200,0/600
+				Warning Tone: 1400/400,0/5000
+				Record Tone:
+				Auto Answer Tone:	
+	# 
+		---[ PHONEBOOK ]------------------------------------------------------------------
+		
+		Cloud phonebook
+			Name: <NOMBRE_EMPRESA>
+			URL: <URL_SERVIDOR_DEL_ARCHIVO_XML_DE_AGENDA_DE_CONTACTOS>
+			Calling Line: Auto
+			Search Line: Auto
+	# En Function Keys añadimos todas las paginas posibles. 		
+		---[ FUNCTION KEY ]---------------------------------------------------------------
+		Teclas BLF que se puedan usar como extension rapida:
+			Type: Key Event
+			Name: <NOMBRE_DE_LA_AGENDA>
+			Subtype: XML Group
 
 
-#######################################################################################################
-	CONFIGURACIÓN tlf físico
-#######################################################################################################
-	  
-	1- Desde el tlf físico le damos a Menú > Estado > ETH IP para ver la ip del tlf físico
-	2- entro por https a través de la ip: https://<dirección_IP>
-	3- agrego el usuario y contraseña que tenemos en la documentación
-	4- dentro de la web pulso "en linea" y desde ahí busco el nombre que tengo que modificar (porque tendra la configuración y el nombre de otro usuario).
