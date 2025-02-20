@@ -1,6 +1,7 @@
-#!/bin/bash
 ## Este script va a mandar un mensaje a los destinatarios cada vez que se creen nuevos usuarios
 ## Este script sirve para que si algún intruso crea un usuario en nuestra base de datos recibamos una alerta
+## Tenemos que darle permisos al archivo de: chmod +x check_new_users.sh
+#!/bin/bash
 
 # Configuración de la base de datos
 DB_USER="tu_usuario"
@@ -8,7 +9,7 @@ DB_PASSWORD="tu_contraseña"
 DB_HOST="localhost"
 
 # Configuración del correo electrónico
-SMTP_TO="destinatario@ejemplo.com"
+SMTP_TO=("destinatario1@ejemplo.com" "destinatario2@ejemplo.com" "destinatario3@ejemplo.com")  # Agrega más destinatarios aquí
 SMTP_FROM="tu_email@ejemplo.com"
 SUBJECT="Alerta: Nuevos usuarios en la base de datos"
 
@@ -40,8 +41,13 @@ NEW_USERS=$(comm -13 <(echo "$PREVIOUS_USERS") <(echo "$CURRENT_USERS"))
 UNNOTIFIED_NEW_USERS=$(comm -13 <(echo "$NOTIFIED_USERS") <(echo "$NEW_USERS"))
 
 if [ -n "$UNNOTIFIED_NEW_USERS" ]; then
-    # Enviar un correo electrónico si hay nuevos usuarios no notificados
-    echo -e "Se han creado nuevos usuarios:\n$UNNOTIFIED_NEW_USERS" | mail -s "$SUBJECT" -r "$SMTP_FROM" "$SMTP_TO"
+    # Crear el mensaje
+    MESSAGE="Se han creado nuevos usuarios:\n$UNNOTIFIED_NEW_USERS"
+    
+    # Enviar un correo electrónico a cada destinatario
+    for recipient in "${SMTP_TO[@]}"; do
+        echo -e "$MESSAGE" | mail -s "$SUBJECT" -r "$SMTP_FROM" "$recipient"
+    done
     
     # Agregar los nuevos usuarios a la lista de notificados
     echo "$UNNOTIFIED_NEW_USERS" >> "$NOTIFIED_USERS_FILE"
