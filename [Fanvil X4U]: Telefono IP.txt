@@ -39,6 +39,33 @@
 		+ default.wav
 		+ Configuración x4u vx.xml
 
+#######################################################################################################
+	CONFIGURACIÓN del terminal
+#######################################################################################################
+
+# Configuración de cuenta
+	Line > SIP
+	---[ LINE ]-----------------------------------------------------------------------
+	Network Time Server Settings
+		Time Synchronized via SNTP: Enable
+		Username: 
+		Display name: 
+		Authentication User: 
+		Authentication Password: 
+		Primary Time Server: <IP_SERVIDOR_SIP>
+		Secondary Time Server: 
+		Time zone: UTC+1
+		Resync Period: 3600
+		
+	Time/Date Format
+		12-hour clock: Disabled		
+		Time/Date Format: DD MM YYYY (9-11-2022 MIE)
+		Date Seperator: -
+			
+	Daylight Saving Time Settings
+		Location: Spain(Madrid)
+		DST Set Type: Automatic
+
 
 ########################################################################################################################################
 #########################################[ CONFIGURACIÓN LENTA · MANUAL ]###############################################################
@@ -104,7 +131,7 @@
 		Network Time Server Settings
 			Time Synchronized via SNTP: Enable
 			Primary Time Server: <IP_SERVIDOR_SIP>
-			Secondary Time Server: 192.168.0.1
+			Secondary Time Server: 
 			Time zone: UTC+1
 			Resync Period: 3600
 		
@@ -137,9 +164,8 @@
 				Warning Tone: 1400/400,0/5000
 				Record Tone:
 				Auto Answer Tone:	
-	# 
+	# Configuración de la agenda
 		---[ PHONEBOOK ]------------------------------------------------------------------
-		
 		Cloud phonebook
 			Name: <NOMBRE_EMPRESA>
 			URL: <URL_SERVIDOR_DEL_ARCHIVO_XML_DE_AGENDA_DE_CONTACTOS>
