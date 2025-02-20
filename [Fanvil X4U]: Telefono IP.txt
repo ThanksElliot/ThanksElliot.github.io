@@ -5,7 +5,8 @@
 # Busco en mi servidor de archivos un backup que tengo de la configuración manual de abajo
 
 
-## en el caso de que tenga que 
+## en el caso de que tenga que tenga resetear algún dispositivo
+System > Configurations > Reset Phone > Reset
 
 
 ########################################################################################################################################
