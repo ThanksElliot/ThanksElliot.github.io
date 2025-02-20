@@ -1,7 +1,7 @@
 # voy a crear un usuario en el servidor de Asterisk, 
 
 #######################################################################################################
-	SERVIDOR pbx.grafometal.es
+	SERVIDOR ASTERISK
 #######################################################################################################
 1- entro en el servidor encargado de Asterisk
 
