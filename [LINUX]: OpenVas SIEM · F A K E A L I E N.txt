@@ -1,7 +1,12 @@
 # Guía de Instalación de OpenVAS en Debian
 
-## 1. Introducción
+## 1.🔥 Introducción
 OpenVAS (Open Vulnerability Assessment System) es una plataforma de escaneo de vulnerabilidades de código abierto. Esta guía detalla el proceso de instalación en Debian.
+```bash
+# *********************************************************************
+cd $HOME
+# *********************************************************************
+
 
 ## 2.🔥 Configuración de Variables de Entorno
 ```bash
