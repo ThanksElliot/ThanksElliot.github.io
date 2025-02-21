@@ -107,7 +107,7 @@
 ============[ 4. Servicio:Apolo ]=======================================================
 
 # Apolo es un servicio que busca todas las características del equipo y las guarda en una base de datos
-# para instalar apolo lo busco desde \\software 
+# para instalar apolo lo busco desde 
 # El archivo de instalación en el Setup Apolo Service v22.356
 	> Siguiente
 
@@ -117,7 +117,6 @@
 
 ============[ 5. Impresoras ]===========================================================
 
-# Busco el driver de la impresora en //srvsoftware/Drivers
 # algunos drivers solo hace falta instalarlos
 [ ejecuto el driver ]:
 	[ ] When done unzipping open: ./install.exe						# opción desactivada
@@ -219,32 +218,3 @@ Mi equipo > (botón derecho) Configuración > Pantalla > Expandir estas pantalla
 # Apunto "Mi Equipo" al escritorio
 Mi equipo > Personalización > Temas > Configuración de iconos de escritorio
 
-
-============[ 11. Instalar programas ]====================================================	
- 
-# Instalación para todos los equipos:
-	[●] WinRAR										# desde el servidor de \\software
-	[●] Apolo										# desde el servidor de \\software
-	[●] Acrobat Reader									# desde el servidor de \\software
-	[●] Chrome										# desde el servidor de \\software
-# Opcionales:
-	[●] xmlnotepad										# desde el servidor de \\software
-	[●] juntarpdf										# desde el servidor de \\software
-	[●] VNC											# desde el servidor de \\software
-		└───────────> Exclusivo y obligatorio para equipos fuera de oficinas
-	[●] ESET - Antivirus									# desde el servidor de \\software
-		└───────────> En el caso de ser un equipo, instalo "PROTECT 11.1" y luego "PROTECT Agent installer 11.2"
-	[●] Office										# desde el servidor de \\software/Microssoft Officce
-		|───────────> Si existe busco la referencia en: \\fs/Informatica/Licencias/Micossoft/Microssoft Officce/Licencias.Microsoft.Office.xlsx
-		└───────────> Tiene que coincidir por año de la versión en "Edición" y la fecha de modificación del equipo a instalar en \\software.
-	[●] Perseo 										# desde el servidor de \\perseo/PERSEO2023
-		└───────────> Depende del equipo que esté instalando, en el caso de oficinas SETUP GESTION/%%.exe
-	[●] Navision (Nuevo)									# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2020/ 
-	[●] Navision (Antiguo)									# desde el servidor de \\software/Microsoft Dynamics Nav/Business Central 2019/
-		└───────────> Seguir guía
-	[●] DFserever										# desde el servidor de \\software
-		└───────────> Seguir guía
-	[●] Kodak										# el instalador se puede hacer de cualquiera de las dos rutas, (la primera es un acceso directo de la segunda):
-												# \\software/KODAK/WorkShop/Windows/*.exe
-												# \\software/KODAK/WorkShop/Windows/Disk1/InstData/VM/WorkshopInstaller.exe
-		└───────────> Instalación de botón gordo hay que tener en cuenta que tengo que tener configurado el servidor de fs-kodak tanto por IP como nombre y recordando la contraseña de acceso.
