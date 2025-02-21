@@ -1,7 +1,7 @@
 [Docker]:
 
-# comprobar las maquinas levantadas 
-docker ps
+# Ver todos los contenedores (incluidos los detenidos)
+docker ps -a  
 
 # parar maquina
 docker stop nombre_del_contenedor
