@@ -2,7 +2,7 @@
 ################################################################################
 
 # Nunca entrar a los servidores desde los equipos como Administrador (excepto el departamento de IT)
-
+# Para documentación completa acceso a root.
 
 [Índice de instalación]:
 *****************************
