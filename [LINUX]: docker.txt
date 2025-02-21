@@ -1,0 +1,19 @@
+[Docker]:
+
+# comprobar las maquinas levantadas 
+docker ps
+
+# parar maquina
+docker stop nombre_del_contenedor
+
+# iniciar maquina
+docker start nombre_del_contenedor
+
+# borrar maquina
+docker rm nombre_del_contenedor
+
+# reiniciar maquina
+docker restart openvas
+
+# acceder a la maquina
+docker exec -it openvas /bin/bash
