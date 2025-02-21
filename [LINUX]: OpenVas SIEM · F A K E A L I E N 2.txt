@@ -1,0 +1,225 @@
+# Guía de Instalación de OpenVAS en Debian
+
+## 1. Introducción
+OpenVAS (Open Vulnerability Assessment System) es una plataforma de escaneo de vulnerabilidades de código abierto. Esta guía detalla el proceso de instalación en Debian.
+
+## 2.🔥 Configuración de Variables de Entorno
+```bash
+# *********************************************************************
+# Definimos las versiones de los componentes
+	export GVM_LIBS_VERSION=22.10.0
+	export GVMD_VERSION=23.8.1
+	export PG_GVM_VERSION=22.6.5
+	export GSA_VERSION=23.2.1
+	export GSAD_VERSION=22.11.0
+	export OPENVAS_SMB_VERSION=22.5.3
+	export OPENVAS_SCANNER_VERSION=23.8.2
+	export OSPD_OPENVAS_VERSION=22.7.1
+	export NOTUS_VERSION=22.6.0
+	export OPENVAS_DAEMON=23.8.2
+# *********************************************************************
+
+
+## 3.🔥 Instalación de Dependencias
+```bash
+# *********************************************************************
+	sudo apt update && sudo apt install --no-install-recommends --assume-yes \
+	  build-essential cmake pkg-config python3 python3-pip \
+	  libglib2.0-dev libgpgme-dev libgnutls28-dev uuid-dev \
+	  libssh-gcrypt-dev libhiredis-dev libxml2-dev libpcap-dev \
+	  libnet1-dev libpaho-mqtt-dev sysvbanner libldap2-dev \
+	  libradcli-dev postgresql postgresql-server-dev-15
+# *********************************************************************
+
+
+## 4.🔥 Importar Clave de Firma de Greenbone
+```bash
+# *********************************************************************
+	# Actualizar lista de paquetes e instalar dependencias
+	sudo apt update
+	sudo apt install --no-install-recommends --assume-yes \
+	  build-essential curl cmake pkg-config python3 python3-pip \
+	  libcurl4-openssl-dev gnupg
+# *********************************************************************
+
+
+## 5.🔥 Importar la Clave de Firma de Greenbone
+```bash
+# *********************************************************************
+	curl -f -L https://www.greenbone.net/GBCommunitySigningKey.asc -o /tmp/GBCommunitySigningKey.asc
+	gpg --import /tmp/GBCommunitySigningKey.asc
+	echo "8AE4BE429B60A59B311C2E739823FAA60ED1E580:6:" | gpg --import-ownertrust
+# *********************************************************************
+
+
+## 6.🔥 Creación de Usuario y Base de Datos PostgreSQL
+
+### 6.1📌 gvm-libs
+```bash
+# *********************************************************************
+	sudo systemctl enable postgresql
+	sudo -u postgres createuser -DRS gvm
+	sudo -u postgres createdb -O gvm gvmd
+# *********************************************************************
+
+
+## 7.🔥 Compilación e Instalación de Componentes
+
+### 7.1📌 gvm-libs
+```bash
+# *********************************************************************
+	curl -f -L https://github.com/greenbone/gvm-libs/archive/refs/tags/v$GVM_LIBS_VERSION.tar.gz -o $SOURCE_DIR/gvm-libs.tar.gz
+	tar -C $SOURCE_DIR -xvzf $SOURCE_DIR/gvm-libs.tar.gz
+	mkdir -p $BUILD_DIR/gvm-libs && cd $BUILD_DIR/gvm-libs
+
+	cmake $SOURCE_DIR/gvm-libs-$GVM_LIBS_VERSION \
+	  -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX -DCMAKE_BUILD_TYPE=Release \
+	  -DSYSCONFDIR=/etc -DLOCALSTATEDIR=/var
+
+	make -j$(nproc)
+	sudo make install
+# *********************************************************************
+
+### 7.2📌 gvmd
+```bash
+# *********************************************************************
+	curl -f -L https://github.com/greenbone/gvmd/archive/refs/tags/v$GVMD_VERSION.tar.gz -o $SOURCE_DIR/gvmd.tar.gz
+	tar -C $SOURCE_DIR -xvzf $SOURCE_DIR/gvmd.tar.gz
+	mkdir -p $BUILD_DIR/gvmd && cd $BUILD_DIR/gvmd
+
+	cmake $SOURCE_DIR/gvmd-$GVMD_VERSION \
+	  -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX -DCMAKE_BUILD_TYPE=Release \
+	  -DLOCALSTATEDIR=/var -DSYSCONFDIR=/etc \
+	  -DGVM_DATA_DIR=/var -DGVMD_RUN_DIR=/run/gvmd \
+	  -DOPENVAS_DEFAULT_SOCKET=/run/ospd/ospd-openvas.sock \
+	  -DGVM_FEED_LOCK_PATH=/var/lib/gvm/feed-update.lock
+
+	make -j$(nproc)
+	sudo make install
+
+	sudo nano /etc/systemd/system/gvmd.service
+	-------------------------------------------------------------------
+		[Unit]
+		Description=Greenbone Vulnerability Manager daemon (gvmd)
+		After=network.target postgresql.service redis-server.service ospd-openvas.service
+
+		[Service]
+		Type=forking
+		User=gvm
+		Group=gvm
+		ExecStart=/usr/local/sbin/gvmd
+		PIDFile=/run/gvmd/gvmd.pid
+		Restart=always
+		TimeoutSec=600
+		Environment=GVMD_RUN_DIR=/run/gvmd
+
+		[Install]
+		WantedBy=multi-user.target
+	-------------------------------------------------------------------
+# *********************************************************************
+
+
+### 7.3📌 gsa (Interfaz Web)
+```bash
+# *********************************************************************
+	sudo apt install -y nodejs npm
+	git clone --branch v$GSA_VERSION https://github.com/greenbone/gsa.git $SOURCE_DIR/gsa
+	cd $SOURCE_DIR/gsa
+	npm install
+	yarn build
+	
+	cd $SOURCE_DIR
+	curl -f -L https://github.com/greenbone/gsad/archive/refs/tags/v$GSAD_VERSION.tar.gz -o gsad-$GSAD_VERSION.tar.gz
+	tar -xvzf gsad-$GSAD_VERSION.tar.gz
+	mkdir -p $BUILD_DIR/gsad && cd $BUILD_DIR/gsad
+
+	cmake $SOURCE_DIR/gsad-$GSAD_VERSION \
+	  -DCMAKE_INSTALL_PREFIX=/usr/local \
+	  -DCMAKE_BUILD_TYPE=Release
+
+	make -j$(nproc)
+	sudo make install
+	
+	sudo nano /etc/systemd/system/gsad.service
+	-------------------------------------------------------------------
+		[Unit]
+		Description=Greenbone Security Assistant Daemon
+		After=network.target gvmd.service
+
+		[Service]
+		ExecStart=/usr/local/sbin/gsad --http-only --listen=0.0.0.0 --port=9392
+		Restart=always
+		User=gvm
+		Group=gvm
+
+		[Install]
+		WantedBy=multi-user.target
+	-------------------------------------------------------------------
+
+# *********************************************************************
+
+### 7.4📌 OpenVAS Scanner
+```bash
+# *********************************************************************
+	sudo apt install -y libglib2.0-dev libgnutls28-dev libpcap-dev \
+	   libgpgme-dev libjson-glib-dev libradcli-dev \
+	   libsnmp-dev libldap2-dev libradcli-dev
+
+	curl -f -L https://github.com/greenbone/openvas-scanner/archive/refs/tags/v$OPENVAS_SCANNER_VERSION.tar.gz -o $SOURCE_DIR/openvas-scanner-$OPENVAS_SCANNER_VERSION.tar.gz
+	tar -C $SOURCE_DIR -xvzf $SOURCE_DIR/openvas-scanner-$OPENVAS_SCANNER_VERSION.tar.gz
+	mkdir -p $BUILD_DIR/openvas-scanner && cd $BUILD_DIR/openvas-scanner
+
+	cmake $SOURCE_DIR/openvas-scanner-$OPENVAS_SCANNER_VERSION \
+	   -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX \
+	   -DCMAKE_BUILD_TYPE=Release
+
+	make -j$(nproc)
+	mkdir -p $INSTALL_DIR/openvas-scanner
+	make DESTDIR=$INSTALL_DIR/openvas-scanner install
+	sudo cp -rv $INSTALL_DIR/openvas-scanner/* /
+# *********************************************************************
+
+
+
+## 8.🔥 Configuración del Sistema
+### 8.1📌 Configurar Redis
+```bash
+# *********************************************************************
+	sudo apt install -y redis-server
+	sudo systemctl enable redis-server
+# *********************************************************************
+
+### 8.2📌 Configurar Firewall
+```bash
+# *********************************************************************
+	sudo ufw allow 9392/tcp
+	sudo ufw enable
+# *********************************************************************
+
+### 8.3📌 Iniciar Servicios
+```bash
+# *********************************************************************
+	systemctl daemon-reload
+	systemctl enable gvmd
+	systemctl enable gsad
+	gsad --http-only --listen=0.0.0.0 --port=9392
+# *********************************************************************
+
+### 8.4📌 OpenVAS
+```bash
+# *********************************************************************
+	sudo mkdir -p /var/run/ospd
+	sudo chown gvm:gvm /var/run/ospd
+	sudo chmod 770 /var/run/ospd
+
+	sudo systemctl enable openvas
+# *********************************************************************
+
+
+## 9.🔥 Verificación de Instalación
+```bash
+# *********************************************************************
+	gvmd --version
+	gsad --version
+	openvas --version
+# *********************************************************************
