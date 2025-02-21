@@ -114,10 +114,15 @@ goto menu
 
 :mrtactivity
 
-echo Creo un archivo temporal mrt_log.txt
+echo Creo un archivo temporal %temp%/mrt_log.txt
+setlocal
+
 :: Crear un archivo de registro para MRT
+set "logFile=%temp%\mrt_log.txt"
+
 echo Iniciando el análisis completo con MRT...
-start mrt.exe /F:Y /Q
+:: Ejecutar MRT sin el modo silencioso para obtener más detalles
+mrt.exe /F:Y > "%logFile%" 2>&1
 
 :: Esperar un momento para asegurarse de que MRT haya comenzado
 timeout /t 5 > nul
@@ -129,10 +134,19 @@ if %errorlevel%==0 (
     echo El análisis está en curso... Por favor, espere.
     timeout /t 30 > nul
     goto checkMRT
+) else (
+    echo MRT no está en ejecución. Verifica si se ejecutó correctamente.
+    echo Revisa el archivo de registro para más detalles:
+    type "%logFile%"
+    exit /b
 )
 
 :: Mensaje final
 echo Análisis completado.
+
+:: Mostrar el contenido del archivo de registro
+echo Resultados del análisis:
+type "%logFile%"
 
 endlocal
 
