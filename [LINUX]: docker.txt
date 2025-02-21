@@ -1,19 +1,95 @@
 [Docker]:
 
+# =======================================================
+[Gestión de contenedores]:
+
+# Ver contenedores en ejecución
+docker ps  
+
 # Ver todos los contenedores (incluidos los detenidos)
 docker ps -a  
 
-# parar maquina
-docker stop nombre_del_contenedor
+# Detener un contenedor
+docker stop nombre_del_contenedor  
 
-# iniciar maquina
-docker start nombre_del_contenedor
+# Iniciar un contenedor
+docker start nombre_del_contenedor  
 
-# borrar maquina
-docker rm nombre_del_contenedor
+# Eliminar un contenedor
+docker rm nombre_del_contenedor  
 
-# reiniciar maquina
-docker restart openvas
+# Reiniciar un contenedor
+docker restart nombre_del_contenedor  
 
-# acceder a la maquina
-docker exec -it openvas /bin/bash
+# Acceder a un contenedor en modo interactivo
+docker exec -it nombre_del_contenedor /bin/bash  
+
+# Ver logs de un contenedor
+docker logs nombre_del_contenedor  
+
+# Ver procesos dentro de un contenedor
+docker top nombre_del_contenedor  
+
+# =======================================================
+[Gestión de imágenes]:
+
+# Listar todas las imágenes descargadas
+docker images  
+
+# Descargar una imagen desde Docker Hub
+docker pull nombre_de_imagen  
+
+# Eliminar una imagen
+docker rmi nombre_de_imagen  
+
+# Construir una imagen desde un Dockerfile
+docker build -t nombre_de_imagen .  
+
+# Ver el historial de una imagen
+docker history nombre_de_imagen  
+
+# =======================================================
+[Gestión de Volúmenes y Redes]:
+
+# Listar volúmenes creados
+docker volume ls  
+
+# Crear un volumen
+docker volume create nombre_volumen  
+
+# Inspeccionar un volumen
+docker volume inspect nombre_volumen  
+
+# Eliminar un volumen
+docker volume rm nombre_volumen  
+
+# Listar redes de Docker
+docker network ls  
+
+# Crear una red
+docker network create nombre_red  
+
+# Conectar un contenedor a una red
+docker network connect nombre_red nombre_contenedor  
+
+# Desconectar un contenedor de una red
+docker network disconnect nombre_red nombre_contenedor  
+
+# Eliminar una red
+docker network rm nombre_red  
+
+# =======================================================
+[Gestión de Imágenes y Contenedores con Docker Compose]:
+
+# Iniciar servicios definidos en docker-compose.yml
+docker-compose up -d  
+
+# Detener servicios de docker-compose
+docker-compose down  
+
+# Ver logs de los servicios
+docker-compose logs  
+
+# Reconstruir y reiniciar contenedores de docker-compose
+docker-compose up --build -d  
+
